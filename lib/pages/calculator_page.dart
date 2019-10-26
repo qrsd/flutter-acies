@@ -13,72 +13,74 @@ class CalculatorPage extends StatefulWidget {
 
 class _CalculatorPageState extends State<CalculatorPage> {
   double _offset;
-  String _delta;
 
   @override
   void initState() {
-    _offset = 45;
+    _offset = .04;
     KeyController.listen((kb) => Brain.process(kb));
-    Brain.listen(
-      (delta) => setState(
-        () {
-          _delta = delta;
-        },
-      ),
-    );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff212327),
+      backgroundColor: const Color(0xff212327),
       resizeToAvoidBottomInset: false,
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
+      body: Stack(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Align(
+              alignment: const Alignment(0, -1),
               child: TopBar(),
             ),
-            Row(
+          ),
+          Align(
+            alignment: const Alignment(0, -.7),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 PlayerColumn(PLAYER_1),
-                CenterColumn(_delta),
+                StreamBuilder(
+                  stream: Brain.deltaStream,
+                  builder: (context, snapshot) {
+                    return CenterColumn(snapshot.data);
+                  },
+                ),
                 PlayerColumn(PLAYER_2),
               ],
             ),
-            Container(
-              height: MediaQuery.of(context).size.height * .6 - _offset,
-              constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height * .6,
-                  minHeight: MediaQuery.of(context).size.height * .6 - 45),
-              child: Stack(
-                children: <Widget>[
-                  Positioned.fill(
-                    top: 0,
-                    child: GestureDetector(
-                      onVerticalDragUpdate: (details) {
-                        setState(
-                          () {
-                            _offset += details.primaryDelta * 3;
-                          },
-                        );
-                      },
-                      child: SwipeUpBar(),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    child: Pad(),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+          StreamBuilder(
+            stream: Brain.swipeStream,
+            builder: (context, snapshot) {
+              return GestureDetector(
+                onVerticalDragUpdate: (DragUpdateDetails details) {
+                  _offset += details.primaryDelta * .003;
+                  if (_offset > .04) {
+                    _offset = .04;
+                  } else if (_offset < -.09) {
+                    _offset = -.09;
+                  }
+                  Brain.swipeController.add(_offset);
+                },
+                child: Align(
+                    alignment: snapshot.hasData
+                        ? Alignment(
+                            0,
+                            snapshot.data >= -.09
+                                ? (snapshot.data <= .04 ? snapshot.data : -.09)
+                                : .04)
+                        : Alignment(0, .04),
+                    child: SwipeUpBar()),
+              );
+            },
+          ),
+          Align(
+            alignment: const Alignment(0, 1),
+            child: Pad(),
+          ),
+        ],
       ),
     );
   }

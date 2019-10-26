@@ -12,6 +12,7 @@ class Pad extends StatelessWidget {
         color: Color(0xff212327),
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(3.0),

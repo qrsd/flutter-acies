@@ -19,21 +19,24 @@ abstract class Brain {
   static int _p2LP = START_LP;
   static String _output;
 
-  static StreamController _controller = StreamController();
-  static Stream get _stream => _controller.stream;
-  static void _fire(String delta) => _controller.add(delta);
+  static StreamController _deltaController = StreamController();
+  static Stream get deltaStream => _deltaController.stream;
+  static void _fire(String delta) => _deltaController.add(delta);
   static StreamSubscription listen(Function handler) =>
-      _stream.listen(handler as dynamic);
+      deltaStream.listen(handler as dynamic);
 
-  static StreamController _passLP1 = StreamController();
-  static Stream get p1Stream => _passLP1.stream;
-  static StreamController _passLP2 = StreamController();
-  static Stream get p2Stream => _passLP2.stream;
+  static StreamController swipeController = StreamController();
+  static Stream get swipeStream => swipeController.stream;
+  static StreamController _p1Controller = StreamController();
+  static Stream get p1Stream => _p1Controller.stream;
+  static StreamController _p2Controller = StreamController();
+  static Stream get p2Stream => _p2Controller.stream;
 
   static dispose() {
-    _passLP1.close();
-    _passLP2.close();
-    _controller.close();
+    _p1Controller.close();
+    _p2Controller.close();
+    _deltaController.close();
+    swipeController.close();
   }
 
   static process(KeyButton kb) {
@@ -77,7 +80,7 @@ abstract class Brain {
             //_p1LP -= int.parse(_delta);
             break;
         }
-        _passLP1.add(_p1LP);
+        _p1Controller.add(_p1LP);
       } else {
         switch (operation) {
           case 'add1':
@@ -90,7 +93,7 @@ abstract class Brain {
             //_p1LP -= int.parse(_delta);
             break;
         }
-        _passLP2.add(_p2LP);
+        _p2Controller.add(_p2LP);
       }
     }
     _clear();

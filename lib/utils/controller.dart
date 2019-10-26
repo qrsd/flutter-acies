@@ -67,7 +67,7 @@ abstract class Brain {
   }
 
   static void _lpCalc(String operation) {
-    if (_delta != null) {
+    if (_delta != null || operation.contains('hlf')) {
       if (operation.contains('0')) {
         switch (operation) {
           case 'add0':
@@ -75,9 +75,10 @@ abstract class Brain {
             break;
           case 'min0':
             _p1LP -= int.parse(_delta);
+            if (_p1LP < 0) _p1LP = 0;
             break;
           case 'hlf0':
-            //_p1LP -= int.parse(_delta);
+            _p1LP ~/= 2;
             break;
         }
         _p1Controller.add(_p1LP);
@@ -88,9 +89,10 @@ abstract class Brain {
             break;
           case 'min1':
             _p2LP -= int.parse(_delta);
+            if (_p2LP < 0) _p2LP = 0;
             break;
           case 'hlf1':
-            //_p1LP -= int.parse(_delta);
+            _p2LP ~/= 2;
             break;
         }
         _p2Controller.add(_p2LP);

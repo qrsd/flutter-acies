@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../blocs/blocs.dart';
 import '../utils/constants.dart';
-import '../utils/controller.dart';
-import '../widgets/keys.dart';
+import '../utils/key_values.dart';
+import './widgets.dart';
 
 class PlayerColumn extends StatelessWidget {
   final int player;
@@ -67,8 +69,7 @@ class Players extends StatelessWidget {
 
 class LifePoints extends StatefulWidget {
   final int player;
-  static _LifePointsState of(BuildContext context) =>
-      context.ancestorStateOfType(const TypeMatcher<_LifePointsState>());
+
   LifePoints(this.player);
 
   @override
@@ -105,11 +106,11 @@ class _LifePointsState extends State<LifePoints>
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: widget.player == PLAYER_1 ? Brain.p1Stream : Brain.p2Stream,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          _aniDelta = snapshot.data;
+    return BlocBuilder<CalculatorBloc, CalculatorState>(
+      builder: (context, state) {
+        if (widget.player == PLAYER_1 && state is P1LPUpdate ||
+            (widget.player == PLAYER_2 && state is P2LPUpdate)) {
+          _aniDelta = state.props[0];
           _tween.begin = _tween.end;
           _tween.end = _aniDelta;
           _animationController.forward(from: 0);
@@ -141,10 +142,6 @@ class _LifePointsState extends State<LifePoints>
 }
 
 class CenterColumn extends StatelessWidget {
-  final String _delta;
-
-  CenterColumn(this._delta);
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -153,12 +150,24 @@ class CenterColumn extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Text(
-              _delta ?? '0000',
-              style: TextStyle(
-                fontSize: 30,
-                color: Colors.white,
-              ),
+            BlocBuilder<CalculatorBloc, CalculatorState>(
+              condition: (_, state) {
+                return state is GameWin ? false : true;
+              },
+              builder: (context, state) {
+                String text;
+                if (!(state is MiddleUpdate))
+                  text = '0000';
+                else
+                  text = state.props[0];
+                return Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                  ),
+                );
+              },
             ),
             SizedBox(
               height: 15,

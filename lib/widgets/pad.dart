@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'keys.dart';
+
+import '../utils/key_values.dart';
+import './widgets.dart';
 
 class Pad extends StatelessWidget {
   @override

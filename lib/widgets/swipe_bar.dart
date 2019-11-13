@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SwipeUpBar extends StatelessWidget {
+import '../blocs/blocs.dart';
+
+class SwipeBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -11,18 +14,22 @@ class SwipeUpBar extends StatelessWidget {
         color: Color(0xFF947FFD),
         child: Column(
           children: <Widget>[
-            Icon(
-              Icons.keyboard_arrow_up,
-              color: Colors.black,
+            BlocBuilder<SwipeBarBloc, SwipeBarState>(
+              builder: (context, state) {
+                return Icon(
+                  state is SwipeBarTop
+                      ? Icons.keyboard_arrow_down
+                      : Icons.keyboard_arrow_up,
+                  color: Colors.black,
+                );
+              },
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 InkWell(
                   splashColor: Colors.grey,
-                  onTap: () {
-                    print('prs');
-                  },
+                  onTap: () {},
                   child: Image.asset(
                     'assets/coins.png',
                     width: 30,

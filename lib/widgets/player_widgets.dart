@@ -151,9 +151,6 @@ class CenterColumn extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             BlocBuilder<CalculatorBloc, CalculatorState>(
-              condition: (_, state) {
-                return state is GameWin ? false : true;
-              },
               builder: (context, state) {
                 String text;
                 if (!(state is MiddleUpdate))
@@ -202,13 +199,32 @@ class TopBar extends StatelessWidget {
         Container(
           child: Row(
             children: <Widget>[
-              Icon(
-                Icons.radio_button_unchecked,
-                color: Colors.white,
-              ),
-              Icon(
-                Icons.radio_button_unchecked,
-                color: Colors.white,
+              BlocBuilder<TopBarBloc, TopBarState>(
+                condition: (_, state) {
+                  return state is P1Win ? true : false;
+                },
+                builder: (context, state) {
+                  return Row(
+                    children: <Widget>[
+                      Icon(
+                        2 == (state.props[0])
+                            ? Icons.check_circle_outline
+                            : Icons.radio_button_unchecked,
+                        color: 2 == (state.props[0])
+                            ? Color(0xFF947FFD)
+                            : Colors.white,
+                      ),
+                      Icon(
+                        1 <= (state.props[0])
+                            ? Icons.check_circle_outline
+                            : Icons.radio_button_unchecked,
+                        color: 1 <= (state.props[0])
+                            ? Color(0xFF947FFD)
+                            : Colors.white,
+                      ),
+                    ],
+                  );
+                },
               ),
               Text(
                 'Timer',
@@ -216,13 +232,32 @@ class TopBar extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              Icon(
-                Icons.radio_button_unchecked,
-                color: Colors.white,
-              ),
-              Icon(
-                Icons.check_circle_outline,
-                color: Color(0xFF947FFD),
+              BlocBuilder<TopBarBloc, TopBarState>(
+                condition: (_, state) {
+                  return state is P2Win ? true : false;
+                },
+                builder: (context, state) {
+                  return Row(
+                    children: <Widget>[
+                      Icon(
+                        2 == (state.props[0])
+                            ? Icons.check_circle_outline
+                            : Icons.radio_button_unchecked,
+                        color: 2 == (state.props[0])
+                            ? Color(0xFF947FFD)
+                            : Colors.white,
+                      ),
+                      Icon(
+                        1 <= (state.props[0])
+                            ? Icons.check_circle_outline
+                            : Icons.radio_button_unchecked,
+                        color: 1 <= (state.props[0])
+                            ? Color(0xFF947FFD)
+                            : Colors.white,
+                      ),
+                    ],
+                  );
+                },
               ),
             ],
           ),

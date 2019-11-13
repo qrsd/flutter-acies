@@ -18,6 +18,9 @@ void main() {
         BlocProvider<SwipeBarBloc>(
           builder: (context) => SwipeBarBloc(),
         ),
+        BlocProvider<TopBarBloc>(
+          builder: (context) => TopBarBloc(),
+        ),
       ],
       child: CalculatorApp(),
     ),

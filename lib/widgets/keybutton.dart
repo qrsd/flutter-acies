@@ -34,8 +34,9 @@ class KeyButton extends StatelessWidget {
       );
     } else if (value.key == 'win0' || value.key == 'win1') {
       return InkWell(
-        onTap: () => BlocProvider.of<CalculatorBloc>(context)
-            .add(CalculationEvent(this.value)),
+        onTap: () =>
+            BlocProvider.of<TopBarBloc>(context).add(ScoreUpdate(this.value)),
+        highlightColor: Color(0xFF947FFD),
         child: Icon(
           Icons.check,
           size: 50,

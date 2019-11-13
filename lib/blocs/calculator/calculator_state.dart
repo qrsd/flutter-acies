@@ -15,7 +15,7 @@ class MiddleUpdate extends CalculatorState {
   MiddleUpdate(this.delta);
 
   @override
-  List<Object> get props => [delta];
+  List<String> get props => [delta];
 }
 
 class P1LPUpdate extends CalculatorState {
@@ -24,7 +24,7 @@ class P1LPUpdate extends CalculatorState {
   P1LPUpdate(this.p1LP);
 
   @override
-  List<Object> get props => [p1LP];
+  List<int> get props => [p1LP];
 }
 
 class P2LPUpdate extends CalculatorState {
@@ -33,14 +33,5 @@ class P2LPUpdate extends CalculatorState {
   P2LPUpdate(this.p2LP);
 
   @override
-  List<Object> get props => [p2LP];
-}
-
-class GameWin extends CalculatorState {
-  final int player;
-
-  GameWin(this.player);
-
-  @override
-  List<Object> get props => [player];
+  List<int> get props => [p2LP];
 }

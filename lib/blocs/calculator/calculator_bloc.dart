@@ -46,10 +46,10 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
 
   Stream<CalculatorState> _mapCalculationEventToState(
       CalculationEvent event) async* {
-    String operation = event.value.key;
-    if (_delta != null || operation.contains('hlf')) {
-      if (operation.contains('0')) {
-        switch (operation) {
+    String val = event.value.key;
+    if (_delta != null || val.contains('hlf')) {
+      if (val.contains('0')) {
+        switch (val) {
           case 'add0':
             _p1LP += int.parse(_delta);
             break;
@@ -63,7 +63,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
         }
         yield P1LPUpdate(_p1LP);
       } else {
-        switch (operation) {
+        switch (val) {
           case 'add1':
             _p2LP += int.parse(_delta);
             break;

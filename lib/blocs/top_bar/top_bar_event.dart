@@ -1,14 +1,16 @@
 import 'package:equatable/equatable.dart';
 
+import '../../models/keys.dart';
+
 abstract class TopBarEvent extends Equatable {
   const TopBarEvent();
 }
 
 class ScoreUpdate extends TopBarEvent {
-  final int player;
+  final Keys value;
 
-  const ScoreUpdate(this.player);
+  const ScoreUpdate(this.value);
 
   @override
-  List<Object> get props => [player];
+  List<Keys> get props => [value];
 }

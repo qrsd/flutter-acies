@@ -1,19 +1,15 @@
 import 'dart:async';
-import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
-import 'package:lp_calc/blocs/blocs.dart';
+
 import './bloc.dart';
 
 class TopBarBloc extends Bloc<TopBarEvent, TopBarState> {
-  final CalculatorBloc calculatorBloc;
-  StreamSubscription calculatorSubscription;
+  static int _p1Score;
+  static int _p2Score;
 
-  TopBarBloc({@required this.calculatorBloc}) {
-    calculatorSubscription = calculatorBloc.listen((state) {
-      if (state is GameWin) {
-        add(ScoreUpdate((calculatorBloc.state as GameWin).player));
-      }
-    });
+  TopBarBloc() {
+    _p1Score = 0;
+    _p2Score = 0;
   }
 
   @override
@@ -23,6 +19,19 @@ class TopBarBloc extends Bloc<TopBarEvent, TopBarState> {
   Stream<TopBarState> mapEventToState(
     TopBarEvent event,
   ) async* {
-    // TODO: Add Logic
+    if (event is ScoreUpdate) {
+      yield* _mapScoreUpdateToState(event);
+    }
+  }
+
+  Stream<TopBarState> _mapScoreUpdateToState(ScoreUpdate event) async* {
+    String val = event.value.key;
+    if (val.contains('0')) {
+      _p1Score = _p1Score >= 2 ? 2 : ++_p1Score;
+      yield P1Win(_p1Score);
+    } else {
+      _p2Score = _p2Score >= 2 ? 2 : ++_p2Score;
+      yield P2Win(_p2Score);
+    }
   }
 }

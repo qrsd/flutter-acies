@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../utils/constants.dart';
 import '../utils/key_values.dart';
 import './widgets.dart';
 
@@ -7,11 +8,13 @@ class Pad extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(10),
+        topRight: Radius.circular(10),
+      ),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        color: Color(0xff212327),
+        color: PRIMARY_COLOR,
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,

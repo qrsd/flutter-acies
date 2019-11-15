@@ -21,31 +21,34 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   Stream<CalculatorState> mapEventToState(
     CalculatorEvent event,
   ) async* {
-    if (event is IntegerEvent) {
+    if (event is CalculatorIntegerEvent) {
       yield* _mapIntegerEventToState(event);
-    } else if (event is ClearEvent) {
+    } else if (event is CalculatorClearEvent) {
       yield* _mapClearEventToState();
-    } else if (event is CalculationEvent) {
+    } else if (event is CalculatorCalculationEvent) {
       yield* _mapCalculationEventToState(event);
+    } else if (event is CalculatorResetEvent) {
+      yield* _mapCalculatorResetEventToState();
     }
   }
 
-  Stream<CalculatorState> _mapIntegerEventToState(IntegerEvent event) async* {
+  Stream<CalculatorState> _mapIntegerEventToState(
+      CalculatorIntegerEvent event) async* {
     String val = event.value.key;
-    _delta = _delta == null ? val : _delta + val;
+    _delta = '${_delta ?? ''}$val';
     if (_delta.length > 7) {
       _delta = _delta.substring(0, 7);
     }
-    yield MiddleUpdate(_delta);
+    yield CalculatorMiddleUpdate(_delta);
   }
 
   Stream<CalculatorState> _mapClearEventToState() async* {
     _delta = null;
-    yield CalculatorInitial();
+    yield CalculatorClear();
   }
 
   Stream<CalculatorState> _mapCalculationEventToState(
-      CalculationEvent event) async* {
+      CalculatorCalculationEvent event) async* {
     String val = event.value.key;
     if (_delta != null || val.contains('hlf')) {
       if (val.contains('0')) {
@@ -61,7 +64,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
             _p1LP ~/= 2;
             break;
         }
-        yield P1LPUpdate(_p1LP);
+        yield CalculatorP1LPUpdate(_p1LP);
       } else {
         switch (val) {
           case 'add1':
@@ -75,9 +78,16 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
             _p2LP ~/= 2;
             break;
         }
-        yield P2LPUpdate(_p2LP);
+        yield CalculatorP2LPUpdate(_p2LP);
       }
     }
     _delta = null;
+  }
+
+  Stream<CalculatorState> _mapCalculatorResetEventToState() async* {
+    _p1LP = 8000;
+    _p2LP = 8000;
+    _delta = null;
+    yield CalculatorInitial();
   }
 }

@@ -3,20 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/blocs.dart';
 import '../utils/constants.dart';
-import '../widgets/player_widgets.dart';
-import '../widgets/pad.dart';
-import '../widgets/swipe_bar.dart';
+import '../widgets/widgets.dart';
 
 class CalculatorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff212327),
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(top: 8.0),
+            padding: const EdgeInsets.only(top: 10.0),
             child: Align(
               alignment: const Alignment(0, -1),
               child: TopBar(),
@@ -38,7 +35,7 @@ class CalculatorPage extends StatelessWidget {
               return GestureDetector(
                 onVerticalDragUpdate: (DragUpdateDetails details) {
                   BlocProvider.of<SwipeBarBloc>(context)
-                      .add(BarMoving(details.primaryDelta));
+                      .add(SwipeBarMovingEvent(details.primaryDelta));
                 },
                 child: Align(
                   alignment: Alignment(0, state.props[0]),
@@ -51,15 +48,9 @@ class CalculatorPage extends StatelessWidget {
             alignment: const Alignment(0, 1),
             child: Pad(),
           ),
+          SnackBars(),
         ],
       ),
     );
   }
 }
-
-//@override
-//void initState() {
-//  _offset = .04;
-//  KeyController.listen((kb) => Brain.process(kb));
-//  super.initState();
-//}

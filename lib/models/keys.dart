@@ -2,13 +2,9 @@ import 'package:equatable/equatable.dart';
 
 class Keys extends Equatable {
   final String key;
-  final bool operation;
 
-  Keys(this.key, {this.operation = false});
+  Keys(this.key);
 
   @override
-  List<Object> get props => [
-        key,
-        {operation},
-      ];
+  List<Object> get props => [key];
 }

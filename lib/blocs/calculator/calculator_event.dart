@@ -4,12 +4,19 @@ import '../../models/keys.dart';
 
 abstract class CalculatorEvent extends Equatable {
   const CalculatorEvent();
+
+  @override
+  List<Object> get props => [];
 }
 
-class IntegerEvent extends CalculatorEvent {
+class CalculatorClearEvent extends CalculatorEvent {}
+
+class CalculatorResetEvent extends CalculatorEvent {}
+
+class CalculatorIntegerEvent extends CalculatorEvent {
   final Keys value;
 
-  IntegerEvent(this.value);
+  CalculatorIntegerEvent(this.value);
 
   @override
   List<Object> get props => [value];
@@ -18,15 +25,10 @@ class IntegerEvent extends CalculatorEvent {
   String toString() => 'key: ${value.key}';
 }
 
-class ClearEvent extends CalculatorEvent {
-  @override
-  List<Object> get props => [];
-}
-
-class CalculationEvent extends CalculatorEvent {
+class CalculatorCalculationEvent extends CalculatorEvent {
   final Keys value;
 
-  CalculationEvent(this.value);
+  CalculatorCalculationEvent(this.value);
 
   @override
   List<Object> get props => [value];

@@ -7,10 +7,10 @@ abstract class SwipeBarEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class BarMoving extends SwipeBarEvent {
+class SwipeBarMovingEvent extends SwipeBarEvent {
   final double offsetDelta;
 
-  const BarMoving(this.offsetDelta);
+  const SwipeBarMovingEvent(this.offsetDelta);
 
   @override
   List<double> get props => [offsetDelta];

@@ -6,6 +6,8 @@ import 'package:bloc/bloc.dart';
 import './blocs/blocs.dart';
 import './blocs/simple_bloc_delegate.dart';
 import './screens/calculator_screen.dart';
+import './utils/constants.dart';
+import './utils/ticker.dart';
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
@@ -21,6 +23,9 @@ void main() {
         BlocProvider<TopBarBloc>(
           builder: (context) => TopBarBloc(),
         ),
+        BlocProvider<TimerBloc>(
+          builder: (context) => TimerBloc(ticker: Ticker()),
+        ),
       ],
       child: CalculatorApp(),
     ),
@@ -33,6 +38,7 @@ class CalculatorApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: THEME,
       home: CalculatorPage(),
     );
   }

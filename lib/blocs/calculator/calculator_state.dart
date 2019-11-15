@@ -9,28 +9,30 @@ abstract class CalculatorState extends Equatable {
 
 class CalculatorInitial extends CalculatorState {}
 
-class MiddleUpdate extends CalculatorState {
+class CalculatorClear extends CalculatorState {}
+
+class CalculatorMiddleUpdate extends CalculatorState {
   final String delta;
 
-  MiddleUpdate(this.delta);
+  CalculatorMiddleUpdate(this.delta);
 
   @override
   List<String> get props => [delta];
 }
 
-class P1LPUpdate extends CalculatorState {
+class CalculatorP1LPUpdate extends CalculatorState {
   final int p1LP;
 
-  P1LPUpdate(this.p1LP);
+  CalculatorP1LPUpdate(this.p1LP);
 
   @override
   List<int> get props => [p1LP];
 }
 
-class P2LPUpdate extends CalculatorState {
+class CalculatorP2LPUpdate extends CalculatorState {
   final int p2LP;
 
-  P2LPUpdate(this.p2LP);
+  CalculatorP2LPUpdate(this.p2LP);
 
   @override
   List<int> get props => [p2LP];

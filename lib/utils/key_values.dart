@@ -1,15 +1,15 @@
 import '../models/models.dart';
 
 abstract class KeyValues {
-  static final Keys half0 = Keys('hlf0', operation: true);
-  static final Keys add0 = Keys('add0', operation: true);
-  static final Keys min0 = Keys('min0', operation: true);
-  static final Keys win0 = Keys('win0', operation: true);
-  static final Keys half1 = Keys('hlf1', operation: true);
-  static final Keys add1 = Keys('add1', operation: true);
-  static final Keys min1 = Keys('min1', operation: true);
-  static final Keys win1 = Keys('win1', operation: true);
-  static final Keys clear = Keys('C', operation: true);
+  static final Keys half0 = Keys('hlf0');
+  static final Keys add0 = Keys('add0');
+  static final Keys min0 = Keys('min0');
+  static final Keys win0 = Keys('win0');
+  static final Keys half1 = Keys('hlf1');
+  static final Keys add1 = Keys('add1');
+  static final Keys min1 = Keys('min1');
+  static final Keys win1 = Keys('win1');
+  static final Keys clear = Keys('C');
 
   static final Keys nine = Keys('9');
   static final Keys eight = Keys('8');

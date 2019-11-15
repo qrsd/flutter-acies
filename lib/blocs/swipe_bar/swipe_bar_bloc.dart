@@ -17,12 +17,12 @@ class SwipeBarBloc extends Bloc<SwipeBarEvent, SwipeBarState> {
   Stream<SwipeBarState> mapEventToState(
     SwipeBarEvent event,
   ) async* {
-    if (event is BarMoving) {
+    if (event is SwipeBarMovingEvent) {
       yield* _mapBarMovingToState(event);
     }
   }
 
-  Stream<SwipeBarState> _mapBarMovingToState(BarMoving event) async* {
+  Stream<SwipeBarState> _mapBarMovingToState(SwipeBarMovingEvent event) async* {
     double eventAsDouble = event.props[0] * .003;
     _offset += eventAsDouble;
     if (_offset > .04) {

@@ -26,6 +26,9 @@ void main() {
         BlocProvider<TimerBloc>(
           builder: (context) => TimerBloc(ticker: Ticker()),
         ),
+        BlocProvider<DiceBloc>(
+          builder: (context) => DiceBloc(),
+        ),
       ],
       child: CalculatorApp(),
     ),

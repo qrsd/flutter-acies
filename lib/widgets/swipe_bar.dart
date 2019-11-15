@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/blocs.dart';
 import '../utils/constants.dart';
+import './widgets.dart';
 
 class SwipeBar extends StatelessWidget {
   @override
@@ -37,10 +38,7 @@ class SwipeBar extends StatelessWidget {
                     width: 30,
                   ),
                 ),
-                const Image(
-                  image: AssetImage('assets/dice.png'),
-                  width: 30,
-                ),
+                Dice(),
                 const Icon(
                   Icons.history,
                   size: 30,

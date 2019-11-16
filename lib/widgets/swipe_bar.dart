@@ -31,13 +31,7 @@ class SwipeBar extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                InkWell(
-                  onTap: () {},
-                  child: const Image(
-                    image: AssetImage('assets/coins.png'),
-                    width: 30,
-                  ),
-                ),
+                Coin(),
                 Dice(),
                 const Icon(
                   Icons.history,

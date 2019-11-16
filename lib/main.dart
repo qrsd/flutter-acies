@@ -29,6 +29,9 @@ void main() {
         BlocProvider<DiceBloc>(
           builder: (context) => DiceBloc(),
         ),
+        BlocProvider<CoinBloc>(
+          builder: (context) => CoinBloc(),
+        ),
       ],
       child: CalculatorApp(),
     ),

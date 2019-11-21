@@ -9,9 +9,13 @@ abstract class TimerEvent extends Equatable {
 
 class TimerPauseEvent extends TimerEvent {}
 
-class TimerResumeEvent extends TimerEvent {}
+class TimerResetEvent extends TimerEvent {
+  final bool matchReset;
 
-class TimerResetEvent extends TimerEvent {}
+  const TimerResetEvent(this.matchReset);
+}
+
+class TimerResumeEvent extends TimerEvent {}
 
 class TimerSnackBarEvent extends TimerEvent {}
 

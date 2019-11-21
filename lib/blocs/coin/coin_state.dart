@@ -14,19 +14,19 @@ class CoinInitial extends CoinState {
   List<Object> get props => [initialFlip];
 }
 
-class CoinFlipped extends CoinState {
+class CoinDoubleFlipped extends CoinState {
   final int flipValue;
 
-  CoinFlipped(this.flipValue);
+  CoinDoubleFlipped(this.flipValue);
 
   @override
   List<Object> get props => [flipValue];
 }
 
-class CoinDoubleFlipped extends CoinState {
+class CoinFlipped extends CoinState {
   final int flipValue;
 
-  CoinDoubleFlipped(this.flipValue);
+  CoinFlipped(this.flipValue);
 
   @override
   List<Object> get props => [flipValue];

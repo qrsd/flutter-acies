@@ -58,7 +58,7 @@ class Coin extends StatelessWidget {
       child: Hero(
         tag: 'coin',
         child: const Image(
-          image: AssetImage('assets/coins/0.png'),
+          image: AssetImage('assets/coins/base.png'),
           width: 30,
         ),
       ),
@@ -104,7 +104,6 @@ class _FlipCoinState extends State<FlipCoin>
   Widget build(BuildContext context) {
     return BlocBuilder<CoinBloc, CoinState>(
       builder: (context, state) {
-        print(state);
         if (!(state is CoinInitial)) {
           _animationController.forward(from: 0);
         }

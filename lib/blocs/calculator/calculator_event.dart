@@ -9,9 +9,16 @@ abstract class CalculatorEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CalculatorClearEvent extends CalculatorEvent {}
+class CalculatorCalculationEvent extends CalculatorEvent {
+  final Keys value;
 
-class CalculatorResetEvent extends CalculatorEvent {}
+  CalculatorCalculationEvent(this.value);
+
+  @override
+  List<Object> get props => [value];
+}
+
+class CalculatorClearEvent extends CalculatorEvent {}
 
 class CalculatorIntegerEvent extends CalculatorEvent {
   final Keys value;
@@ -25,11 +32,4 @@ class CalculatorIntegerEvent extends CalculatorEvent {
   String toString() => 'key: ${value.key}';
 }
 
-class CalculatorCalculationEvent extends CalculatorEvent {
-  final Keys value;
-
-  CalculatorCalculationEvent(this.value);
-
-  @override
-  List<Object> get props => [value];
-}
+class CalculatorResetEvent extends CalculatorEvent {}

@@ -22,18 +22,22 @@ class CalculatorMiddleUpdate extends CalculatorState {
 
 class CalculatorP1LPUpdate extends CalculatorState {
   final int p1LP;
+  final String delta;
+  final bool add;
 
-  CalculatorP1LPUpdate(this.p1LP);
+  CalculatorP1LPUpdate(this.p1LP, this.delta, this.add);
 
   @override
-  List<int> get props => [p1LP];
+  List<Object> get props => [p1LP, delta, add];
 }
 
 class CalculatorP2LPUpdate extends CalculatorState {
   final int p2LP;
+  final String delta;
+  final bool add;
 
-  CalculatorP2LPUpdate(this.p2LP);
+  CalculatorP2LPUpdate(this.p2LP, this.delta, this.add);
 
   @override
-  List<int> get props => [p2LP];
+  List<Object> get props => [p2LP, delta, add];
 }

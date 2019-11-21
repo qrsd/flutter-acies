@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import './widgets.dart';
 import '../blocs/blocs.dart';
 import '../utils/constants.dart';
 import '../utils/key_values.dart';
-import './widgets.dart';
 
 class PlayerColumn extends StatelessWidget {
   final int player;
@@ -152,7 +152,8 @@ class CenterColumn extends StatelessWidget {
             BlocBuilder<CalculatorBloc, CalculatorState>(
               builder: (context, state) {
                 String text;
-                if (!(state is CalculatorMiddleUpdate))
+                if (!(state is CalculatorMiddleUpdate) ||
+                    state.props[0] == null)
                   text = '0000';
                 else
                   text = state.props[0];

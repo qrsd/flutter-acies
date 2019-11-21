@@ -1,7 +1,7 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:bloc/bloc.dart';
 
 import './blocs/blocs.dart';
 import './blocs/simple_bloc_delegate.dart';
@@ -17,20 +17,28 @@ void main() {
         BlocProvider<CalculatorBloc>(
           builder: (context) => CalculatorBloc(),
         ),
-        BlocProvider<SwipeBarBloc>(
-          builder: (context) => SwipeBarBloc(),
-        ),
-        BlocProvider<TopBarBloc>(
-          builder: (context) => TopBarBloc(),
-        ),
-        BlocProvider<TimerBloc>(
-          builder: (context) => TimerBloc(ticker: Ticker()),
+        BlocProvider<CoinBloc>(
+          builder: (context) => CoinBloc(),
         ),
         BlocProvider<DiceBloc>(
           builder: (context) => DiceBloc(),
         ),
-        BlocProvider<CoinBloc>(
-          builder: (context) => CoinBloc(),
+        BlocProvider<SwipeBarBloc>(
+          builder: (context) => SwipeBarBloc(),
+        ),
+        BlocProvider<TimerBloc>(
+          builder: (context) => TimerBloc(ticker: Ticker()),
+        ),
+        BlocProvider<TopBarBloc>(
+          builder: (context) => TopBarBloc(),
+        ),
+        BlocProvider<HistoryBloc>(
+          builder: (context) => HistoryBloc(
+            calculatorBloc: BlocProvider.of<CalculatorBloc>(context),
+            topBarBloc: BlocProvider.of<TopBarBloc>(context),
+            coinBloc: BlocProvider.of<CoinBloc>(context),
+            diceBloc: BlocProvider.of<DiceBloc>(context),
+          ),
         ),
       ],
       child: CalculatorApp(),

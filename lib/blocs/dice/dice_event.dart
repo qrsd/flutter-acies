@@ -7,6 +7,6 @@ abstract class DiceEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class DiceRollEvent extends DiceEvent {}
-
 class DiceResetEvent extends DiceEvent {}
+
+class DiceRollEvent extends DiceEvent {}

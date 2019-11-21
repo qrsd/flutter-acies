@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 
 import './bloc.dart';
@@ -12,11 +13,15 @@ class DiceBloc extends Bloc<DiceEvent, DiceState> {
   Stream<DiceState> mapEventToState(
     DiceEvent event,
   ) async* {
-    if (event is DiceRollEvent) {
-      yield* _mapDiceRolledEventToState();
-    } else if (event is DiceResetEvent) {
+    if (event is DiceResetEvent) {
       yield* _mapDiceResetEventToState();
+    } else if (event is DiceRollEvent) {
+      yield* _mapDiceRolledEventToState();
     }
+  }
+
+  Stream<DiceState> _mapDiceResetEventToState() async* {
+    yield DiceInitial();
   }
 
   Stream<DiceState> _mapDiceRolledEventToState() async* {
@@ -26,9 +31,5 @@ class DiceBloc extends Bloc<DiceEvent, DiceState> {
     } else {
       yield DiceRolled(roll);
     }
-  }
-
-  Stream<DiceState> _mapDiceResetEventToState() async* {
-    yield DiceInitial();
   }
 }

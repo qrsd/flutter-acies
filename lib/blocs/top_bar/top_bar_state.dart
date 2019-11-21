@@ -14,6 +14,12 @@ class TopBarInitial extends TopBarState {
   List<int> get props => [score];
 }
 
+class TopBarBack extends TopBarState {}
+
+class TopBarMatchOver extends TopBarState {}
+
+class TopBarNotes extends TopBarState {}
+
 class TopBarP1Win extends TopBarState {
   final int score;
 
@@ -31,7 +37,3 @@ class TopBarP2Win extends TopBarState {
   @override
   List<int> get props => [score];
 }
-
-class TopBarNotes extends TopBarState {}
-
-class TopBarBack extends TopBarState {}

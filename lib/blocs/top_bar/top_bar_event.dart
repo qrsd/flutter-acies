@@ -4,9 +4,16 @@ import '../../models/keys.dart';
 
 abstract class TopBarEvent extends Equatable {
   const TopBarEvent();
+
   @override
   List<Object> get props => [];
 }
+
+class TopBarBackEvent extends TopBarEvent {}
+
+class TopBarNotesEvent extends TopBarEvent {}
+
+class TopBarResetEvent extends TopBarEvent {}
 
 class TopBarScoreEvent extends TopBarEvent {
   final Keys value;
@@ -16,9 +23,3 @@ class TopBarScoreEvent extends TopBarEvent {
   @override
   List<Keys> get props => [value];
 }
-
-class TopBarResetEvent extends TopBarEvent {}
-
-class TopBarNotesEvent extends TopBarEvent {}
-
-class TopBarBackEvent extends TopBarEvent {}

@@ -27,6 +27,10 @@ class TopBar extends StatelessWidget {
                       : false;
                 },
                 builder: (context, state) {
+                  BlocProvider.of<CalculatorBloc>(context)
+                      .add(CalculatorResetEvent());
+                  BlocProvider.of<TimerBloc>(context)
+                      .add(TimerResetEvent(true));
                   return Row(
                     children: <Widget>[
                       Icon(
@@ -68,7 +72,7 @@ class TopBar extends StatelessWidget {
                       onLongPress: () => BlocProvider.of<TimerBloc>(context)
                           .add(TimerPauseEvent()),
                       onPanUpdate: (_) => BlocProvider.of<TimerBloc>(context)
-                          .add(TimerResetEvent()),
+                          .add(TimerResetEvent(false)),
                       child: Text(
                         '$minutesStr:$secondsStr',
                         style: const TextStyle(
@@ -86,6 +90,10 @@ class TopBar extends StatelessWidget {
                       : false;
                 },
                 builder: (context, state) {
+                  BlocProvider.of<CalculatorBloc>(context)
+                      .add(CalculatorResetEvent());
+                  BlocProvider.of<TimerBloc>(context)
+                      .add(TimerResetEvent(true));
                   return Row(
                     children: <Widget>[
                       Icon(

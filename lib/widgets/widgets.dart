@@ -1,8 +1,10 @@
+export './coin.dart';
+export './dice.dart';
+export './history.dart';
 export './keybutton.dart';
 export './pad.dart';
 export './player_widgets.dart';
+export './reset.dart';
+export './snack_bars.dart';
 export './swipe_bar.dart';
 export './top_bar.dart';
-export './snack_bars.dart';
-export './dice.dart';
-export './coin.dart';

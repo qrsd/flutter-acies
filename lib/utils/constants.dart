@@ -46,34 +46,17 @@ ThemeData THEME = ThemeData(
       color: Colors.white,
       fontSize: 14,
     ),
-    body2: TextStyle(
-      color: Colors.white,
-    ),
-    headline: TextStyle(
-      color: Colors.white,
-    ),
     button: TextStyle(
-      color: Colors.white,
-    ),
-    title: TextStyle(
       color: Colors.white,
     ),
     subhead: TextStyle(
       color: Colors.white,
     ),
-    display1: TextStyle(
-      color: Colors.white,
-    ),
   ),
-  primaryTextTheme: TextTheme(
-      body1: TextStyle(
-        color: Colors.white,
-      ),
-      button: TextStyle(
-        color: Colors.white,
-      )),
 );
 
 //<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a></div>
 //<div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a></div>
 //<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a></div>
+//<a target="_blank" href="/icons/set/scroll">Scroll icon</a> by <a target="_blank" href="https://icons8.com">Icons8</a>
+//<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>

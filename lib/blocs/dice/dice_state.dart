@@ -14,19 +14,19 @@ class DiceInitial extends DiceState {
   List<Object> get props => [initialRoll];
 }
 
-class DiceRolled extends DiceState {
+class DiceDoubleRolled extends DiceState {
   final int rollValue;
 
-  DiceRolled(this.rollValue);
+  DiceDoubleRolled(this.rollValue);
 
   @override
   List<Object> get props => [rollValue];
 }
 
-class DiceDoubleRolled extends DiceState {
+class DiceRolled extends DiceState {
   final int rollValue;
 
-  DiceDoubleRolled(this.rollValue);
+  DiceRolled(this.rollValue);
 
   @override
   List<Object> get props => [rollValue];

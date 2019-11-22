@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const SWIPE_BAR_START = 0.02;
+const SWIPE_BAR_END = -.1;
 const PLAYER_1 = 0;
 const PLAYER_2 = 1;
 const START_LP = 8000;

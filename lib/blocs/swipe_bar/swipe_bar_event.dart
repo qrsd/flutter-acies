@@ -15,3 +15,5 @@ class SwipeBarMovingEvent extends SwipeBarEvent {
   @override
   List<double> get props => [offsetDelta];
 }
+
+class SwipeBarResetEvent extends SwipeBarEvent {}

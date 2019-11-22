@@ -45,6 +45,18 @@ class HistoryCoinEvent extends HistoryEvent {
   List<Object> get props => [flipped];
 }
 
+class HistoryMatchOverEvent extends HistoryEvent {}
+
+class HistoryNameChangeEvent extends HistoryEvent {
+  final int player;
+  final String name;
+
+  HistoryNameChangeEvent(this.player, this.name);
+
+  @override
+  List<Object> get props => [player, name];
+}
+
 class HistoryPageEvent extends HistoryEvent {
   final int page;
 
@@ -54,6 +66,6 @@ class HistoryPageEvent extends HistoryEvent {
   List<Object> get props => [page];
 }
 
-class HistoryResetEvent extends HistoryEvent {}
+class HistoryPressedEvent extends HistoryEvent {}
 
-class HistoryMatchOverEvent extends HistoryEvent {}
+class HistoryResetEvent extends HistoryEvent {}

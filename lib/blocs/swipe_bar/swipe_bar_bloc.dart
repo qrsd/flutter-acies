@@ -3,12 +3,13 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 
 import './bloc.dart';
+import '../../utils/constants.dart';
 
 class SwipeBarBloc extends Bloc<SwipeBarEvent, SwipeBarState> {
   double _offset;
 
   SwipeBarBloc() {
-    _offset = .04;
+    _offset = SWIPE_BAR_START;
   }
 
   @override
@@ -19,20 +20,26 @@ class SwipeBarBloc extends Bloc<SwipeBarEvent, SwipeBarState> {
     SwipeBarEvent event,
   ) async* {
     if (event is SwipeBarMovingEvent) {
-      yield* _mapBarMovingToState(event);
+      yield* _mapBarMovingEventToState(event);
+    } else if (event is SwipeBarResetEvent) {
+      yield* _mapBarResetEventToState();
     }
   }
 
-  Stream<SwipeBarState> _mapBarMovingToState(SwipeBarMovingEvent event) async* {
-    double eventAsDouble = event.props[0] * .003;
+  Stream<SwipeBarState> _mapBarMovingEventToState(
+      SwipeBarMovingEvent event) async* {
+    double eventAsDouble = event.offsetDelta * .004;
     _offset += eventAsDouble;
-    if (_offset > .04) {
-      _offset = .04;
-    } else if (_offset < -.09) {
-      _offset = -.09;
-      yield SwipeBarTop(_offset);
-    } else {
-      yield SwipeBarMoving(_offset);
+    if (_offset >= -0.005) {
+      _offset = SWIPE_BAR_START;
+    } else if (_offset <= SWIPE_BAR_END) {
+      _offset = SWIPE_BAR_END;
     }
+    yield SwipeBarMoving(_offset);
+  }
+
+  Stream<SwipeBarState> _mapBarResetEventToState() async* {
+    _offset = SWIPE_BAR_START;
+    yield SwipeBarInitial();
   }
 }

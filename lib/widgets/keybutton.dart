@@ -10,7 +10,8 @@ class KeyButton extends StatelessWidget {
 
   KeyButton(this.value);
 
-  Widget _buildChild(BuildContext context, {double buttonSize}) {
+  Widget _buildChild(BuildContext context,
+      {double buttonSize, double buttonHeight}) {
     if (value.key == 'add0' ||
         value.key == 'add1' ||
         value.key == 'min0' ||
@@ -28,31 +29,31 @@ class KeyButton extends StatelessWidget {
             value.key == 'add0' || value.key == 'add1'
                 ? Icons.local_hospital
                 : Icons.gavel,
-            size: 55,
+            size: 70,
             color: Colors.white,
           ),
         ),
       );
     } else if (value.key == 'win0' || value.key == 'win1') {
       return InkWell(
-        onTap: () => BlocProvider.of<TopBarBloc>(context)
-            .add(TopBarScoreEvent(this.value)),
+        onTap: () {
+          BlocProvider.of<TopBarBloc>(context)
+              .add(TopBarScoreEvent(this.value));
+          BlocProvider.of<SwipeBarBloc>(context).add(SwipeBarResetEvent());
+        },
         highlightColor: SECONDARY_COLOR,
         child: Icon(
           Icons.check,
-          size: 50,
+          size: 65,
           color: Colors.white,
         ),
       );
     } else {
       return Container(
-        padding: const EdgeInsets.symmetric(vertical: 2),
         width: buttonSize,
-        height: 60,
-        child: RaisedButton(
-          elevation: 2,
-          shape: CircleBorder(),
-          color: Colors.grey[850],
+        height: buttonHeight,
+        child: FlatButton(
+          color: PRIMARY_COLOR,
           onPressed: () => value.key == 'hlf0' || value.key == 'hlf1'
               ? BlocProvider.of<CalculatorBloc>(context)
                   .add(CalculatorCalculationEvent(this.value))
@@ -64,6 +65,7 @@ class KeyButton extends StatelessWidget {
           child: Text(
             value.key == 'hlf0' || value.key == 'hlf1' ? '1/2' : value.key,
             style: TextStyle(
+              fontSize: 25,
               color: Colors.white,
             ),
           ),
@@ -74,7 +76,9 @@ class KeyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double buttonSize = (MediaQuery.of(context).size.width - 18) / 3;
-    return _buildChild(context, buttonSize: buttonSize);
+    double buttonSize = (MediaQuery.of(context).size.width) / 3;
+    double buttonHeight = (MediaQuery.of(context).size.height * .506) / 5;
+    return _buildChild(context,
+        buttonSize: buttonSize, buttonHeight: buttonHeight);
   }
 }

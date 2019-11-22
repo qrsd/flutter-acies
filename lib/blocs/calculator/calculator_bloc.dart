@@ -43,6 +43,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
           case 'add0':
             delta = _delta;
             _p1LP += int.parse(_delta);
+            if (_p1LP >= 99999) _p1LP = 99999;
             break;
           case 'min0':
             delta = _delta;
@@ -61,6 +62,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
           case 'add1':
             delta = _delta;
             _p2LP += int.parse(_delta);
+            if (_p2LP >= 99999) _p2LP = 99999;
             break;
           case 'min1':
             delta = _delta;
@@ -91,8 +93,8 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
       _delta = null;
     } else {
       _delta = '${_delta ?? ''}$val';
-      if (_delta.length > 7) {
-        _delta = _delta.substring(0, 7);
+      if (_delta.length > 5) {
+        _delta = _delta.substring(0, 5);
       }
     }
     yield CalculatorMiddleUpdate(_delta);

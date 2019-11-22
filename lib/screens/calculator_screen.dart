@@ -20,7 +20,7 @@ class CalculatorPage extends StatelessWidget {
             ),
           ),
           Align(
-            alignment: const Alignment(0, -.7),
+            alignment: const Alignment(0, -.72),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[

@@ -36,8 +36,8 @@ class Coin extends StatelessWidget {
                             ]
                           : null,
                     ),
-                    height: MediaQuery.of(context).size.width * .5,
-                    width: MediaQuery.of(context).size.width * .5,
+                    height: MediaQuery.of(context).size.width * .6,
+                    width: MediaQuery.of(context).size.width * .6,
                     alignment: Alignment.center,
                     child: Hero(
                       tag: 'coin',
@@ -51,6 +51,7 @@ class Coin extends StatelessWidget {
         )
             .then(
           (_) {
+            BlocProvider.of<SwipeBarBloc>(context).add(SwipeBarResetEvent());
             BlocProvider.of<CoinBloc>(context).add(CoinResetEvent());
           },
         );
@@ -59,7 +60,7 @@ class Coin extends StatelessWidget {
         tag: 'coin',
         child: const Image(
           image: AssetImage('assets/coins/base.png'),
-          width: 30,
+          width: 35,
         ),
       ),
     );
@@ -118,7 +119,7 @@ class _FlipCoinState extends State<FlipCoin>
                 image: AssetImage(
                   'assets/coins/${state.props[0]}.png',
                 ),
-                width: 80,
+                width: MediaQuery.of(context).size.width * .4,
               ),
             );
           },

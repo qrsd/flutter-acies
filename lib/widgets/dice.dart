@@ -36,11 +36,11 @@ class Dice extends StatelessWidget {
                             ]
                           : null,
                     ),
-                    height: MediaQuery.of(context).size.width * .5,
-                    width: MediaQuery.of(context).size.width * .5,
+                    height: MediaQuery.of(context).size.width * .6,
+                    width: MediaQuery.of(context).size.width * .6,
                     alignment: Alignment.center,
                     child: Hero(
-                      tag: 'dice',
+                      tag: 'die',
                       child: ShakeDice(),
                     ),
                   ),
@@ -51,15 +51,16 @@ class Dice extends StatelessWidget {
         )
             .then(
           (_) {
+            BlocProvider.of<SwipeBarBloc>(context).add(SwipeBarResetEvent());
             BlocProvider.of<DiceBloc>(context).add(DiceResetEvent());
           },
         );
       },
       child: Hero(
-        tag: 'dice',
+        tag: 'die',
         child: const Image(
           image: AssetImage('assets/dice/0.png'),
-          width: 30,
+          width: 35,
         ),
       ),
     );
@@ -118,7 +119,7 @@ class _ShakeDiceState extends State<ShakeDice>
                 image: AssetImage(
                   'assets/dice/${state.props[0]}.png',
                 ),
-                width: 80,
+                width: MediaQuery.of(context).size.width * .4,
               ),
             );
           },

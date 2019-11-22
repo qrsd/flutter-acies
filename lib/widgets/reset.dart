@@ -13,12 +13,10 @@ class ResetButton extends StatelessWidget {
         BlocProvider.of<HistoryBloc>(context).add(HistoryResetEvent());
         BlocProvider.of<TimerBloc>(context).add(TimerResetEvent(true));
         BlocProvider.of<TopBarBloc>(context).add(TopBarResetEvent());
+        BlocProvider.of<SwipeBarBloc>(context).add(SwipeBarResetEvent());
         noTitleSnackBar(context, 'Match reset');
       },
-      child: const Image(
-        image: AssetImage('assets/reset.png'),
-        width: 30,
-      ),
+      child: const Image(image: AssetImage('assets/reset.png'), width: 35),
     );
   }
 }

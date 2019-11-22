@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './widgets.dart';
 import '../blocs/blocs.dart';
+import './widgets.dart';
 import '../utils/constants.dart';
 import '../utils/key_values.dart';
 
@@ -42,7 +42,9 @@ class Players extends StatelessWidget {
       height: 20,
       child: TextFormField(
         autocorrect: false,
+        inputFormatters: [LengthLimitingTextInputFormatter(8)],
         initialValue: this.player == PLAYER_1 ? 'You' : 'Opponent',
+        style: TextStyle(fontSize: 22),
         textAlign: TextAlign.center,
         decoration: const InputDecoration(
           enabledBorder: UnderlineInputBorder(
@@ -56,8 +58,10 @@ class Players extends StatelessWidget {
             ),
           ),
         ),
-        onFieldSubmitted: (_) {
+        onFieldSubmitted: (name) {
           SystemChrome.restoreSystemUIOverlays();
+          BlocProvider.of<HistoryBloc>(context)
+              .add(HistoryNameChangeEvent(player, name));
         },
       ),
     );
@@ -120,7 +124,7 @@ class _LifePointsState extends State<LifePoints>
             return Text(lpAnimation.value.toString(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 39,
                   color: _animationController.isAnimating &&
                           (_aniDelta != null ? _aniDelta : 8000) >
                               (lpAnimation != null ? lpAnimation.value : 8000)
@@ -160,7 +164,7 @@ class CenterColumn extends StatelessWidget {
                 return Text(
                   text,
                   style: const TextStyle(
-                    fontSize: 30,
+                    fontSize: 39,
                   ),
                 );
               },

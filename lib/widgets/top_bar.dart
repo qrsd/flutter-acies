@@ -7,14 +7,16 @@ import '../utils/constants.dart';
 class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double iconSize = MediaQuery.of(context).size.width * .08;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         InkWell(
           onTap: () =>
               BlocProvider.of<TopBarBloc>(context).add(TopBarBackEvent()),
-          child: const Icon(
+          child: Icon(
             Icons.clear,
+            size: iconSize,
           ),
         ),
         Container(
@@ -38,12 +40,14 @@ class TopBar extends StatelessWidget {
                             ? Icons.check_circle_outline
                             : Icons.radio_button_unchecked,
                         color: 2 == (state.props[0]) ? SECONDARY_COLOR : null,
+                        size: iconSize,
                       ),
                       Icon(
                         1 <= (state.props[0])
                             ? Icons.check_circle_outline
                             : Icons.radio_button_unchecked,
                         color: 1 <= (state.props[0]) ? SECONDARY_COLOR : null,
+                        size: iconSize,
                       ),
                     ],
                   );
@@ -101,12 +105,14 @@ class TopBar extends StatelessWidget {
                             ? Icons.check_circle_outline
                             : Icons.radio_button_unchecked,
                         color: 1 <= (state.props[0]) ? SECONDARY_COLOR : null,
+                        size: iconSize,
                       ),
                       Icon(
                         2 == (state.props[0])
                             ? Icons.check_circle_outline
                             : Icons.radio_button_unchecked,
                         color: 2 == (state.props[0]) ? SECONDARY_COLOR : null,
+                        size: iconSize,
                       ),
                     ],
                   );
@@ -118,8 +124,9 @@ class TopBar extends StatelessWidget {
         InkWell(
           onTap: () =>
               BlocProvider.of<TopBarBloc>(context).add(TopBarNotesEvent()),
-          child: const Icon(
+          child: Icon(
             Icons.create,
+            size: iconSize,
           ),
         ),
       ],

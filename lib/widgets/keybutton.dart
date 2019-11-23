@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/blocs.dart';
@@ -23,8 +24,11 @@ class KeyButton extends StatelessWidget {
               ? Colors.green
               : Colors.red,
           elevation: 2,
-          onPressed: () => BlocProvider.of<CalculatorBloc>(context)
-              .add(CalculatorCalculationEvent(this.value)),
+          onPressed: () {
+            SystemChrome.restoreSystemUIOverlays();
+            BlocProvider.of<CalculatorBloc>(context)
+                .add(CalculatorCalculationEvent(this.value));
+          },
           child: Icon(
             value.key == 'add0' || value.key == 'add1'
                 ? Icons.local_hospital
@@ -37,6 +41,7 @@ class KeyButton extends StatelessWidget {
     } else if (value.key == 'win0' || value.key == 'win1') {
       return InkWell(
         onTap: () {
+          SystemChrome.restoreSystemUIOverlays();
           BlocProvider.of<TopBarBloc>(context)
               .add(TopBarScoreEvent(this.value));
           BlocProvider.of<SwipeBarBloc>(context).add(SwipeBarResetEvent());
@@ -54,14 +59,17 @@ class KeyButton extends StatelessWidget {
         height: buttonHeight,
         child: FlatButton(
           color: PRIMARY_COLOR,
-          onPressed: () => value.key == 'hlf0' || value.key == 'hlf1'
-              ? BlocProvider.of<CalculatorBloc>(context)
-                  .add(CalculatorCalculationEvent(this.value))
-              : value.key == 'C'
-                  ? BlocProvider.of<CalculatorBloc>(context)
-                      .add(CalculatorClearEvent())
-                  : BlocProvider.of<CalculatorBloc>(context)
-                      .add(CalculatorIntegerEvent(this.value)),
+          onPressed: () {
+            SystemChrome.restoreSystemUIOverlays();
+            value.key == 'hlf0' || value.key == 'hlf1'
+                ? BlocProvider.of<CalculatorBloc>(context)
+                    .add(CalculatorCalculationEvent(this.value))
+                : value.key == 'C'
+                    ? BlocProvider.of<CalculatorBloc>(context)
+                        .add(CalculatorClearEvent())
+                    : BlocProvider.of<CalculatorBloc>(context)
+                        .add(CalculatorIntegerEvent(this.value));
+          },
           child: Text(
             value.key == 'hlf0' || value.key == 'hlf1' ? '1/2' : value.key,
             style: TextStyle(

@@ -1,6 +1,6 @@
-name: lp_calc
-description: lp calc
-version: 1.0.0+1
+name: acies
+description: duel calculator
+version: 1.0.0
 
 environment:
   sdk: ">=2.2.0 <3.0.0"
@@ -14,6 +14,16 @@ dependencies:
   dartz: ^0.8.8
   shared_preferences: ^0.5.4+5
   flushbar: ^1.9.1
+  flutter_native_splash: ^0.1.9
+  flutter_launcher_icons: ^0.7.4
+
+flutter_native_splash:
+  image: assets/splash/acies.png
+  color: "212327"
+
+flutter_icons:
+  image_path: "assets/launcher.png"
+  android: "acies_launcher"
 
 dev_dependencies:
   flutter_test:
@@ -27,3 +37,4 @@ flutter:
     - assets/dice/
     - assets/coins/
     - assets/scroll/
+    - assets/splash/

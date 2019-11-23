@@ -14,8 +14,8 @@ void main() {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider<CalculatorBloc>(
-          builder: (context) => CalculatorBloc(),
+        BlocProvider<TopBarBloc>(
+          builder: (context) => TopBarBloc(),
         ),
         BlocProvider<CoinBloc>(
           builder: (context) => CoinBloc(),
@@ -27,10 +27,15 @@ void main() {
           builder: (context) => SwipeBarBloc(),
         ),
         BlocProvider<TimerBloc>(
-          builder: (context) => TimerBloc(ticker: Ticker()),
+          builder: (context) => TimerBloc(
+            ticker: Ticker(),
+            topBarBloc: BlocProvider.of<TopBarBloc>(context),
+          ),
         ),
-        BlocProvider<TopBarBloc>(
-          builder: (context) => TopBarBloc(),
+        BlocProvider<CalculatorBloc>(
+          builder: (context) => CalculatorBloc(
+            topBarBloc: BlocProvider.of<TopBarBloc>(context),
+          ),
         ),
         BlocProvider<HistoryBloc>(
           builder: (context) => HistoryBloc(
@@ -49,6 +54,8 @@ void main() {
 class CalculatorApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     SystemChrome.setEnabledSystemUIOverlays([]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,

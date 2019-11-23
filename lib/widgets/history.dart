@@ -26,7 +26,7 @@ class History extends StatelessWidget {
                             .withOpacity(animation.value == 1 ? 1 : 0),
                         boxShadow: animation.value == 1
                             ? [
-                                BoxShadow(
+                                const BoxShadow(
                                   color: Colors.black45,
                                   offset: Offset(3, 3),
                                   blurRadius: 10,

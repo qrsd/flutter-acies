@@ -33,3 +33,12 @@ class CalculatorIntegerEvent extends CalculatorEvent {
 }
 
 class CalculatorResetEvent extends CalculatorEvent {}
+
+class CalculatorResumeEvent extends CalculatorEvent {
+  final int player;
+
+  CalculatorResumeEvent(this.player);
+
+  @override
+  List<Object> get props => [player];
+}

@@ -47,13 +47,13 @@ class Players extends StatelessWidget {
         style: TextStyle(fontSize: 22),
         textAlign: TextAlign.center,
         decoration: const InputDecoration(
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: const BorderSide(
               color: Colors.white,
             ),
           ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: const BorderSide(
               color: SECONDARY_COLOR,
             ),
           ),

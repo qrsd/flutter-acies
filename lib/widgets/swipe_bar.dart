@@ -13,8 +13,8 @@ class SwipeBar extends StatelessWidget {
     precacheImage(AssetImage('assets/scroll/2.png'), context);
     return ClipRRect(
       borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(10),
-        topRight: Radius.circular(10),
+        topLeft: Radius.circular(15),
+        topRight: Radius.circular(15),
       ),
       child: Container(
         height: MediaQuery.of(context).size.height * .12,

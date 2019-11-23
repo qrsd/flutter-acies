@@ -1,24 +1,24 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
-import 'package:lp_calc/utils/constants.dart';
 import 'package:meta/meta.dart';
+import 'package:bloc/bloc.dart';
 
+import '../../utils/constants.dart';
 import './bloc.dart';
 import '../blocs.dart';
 
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
-  List<String> events;
-  int game;
-  Map<int, dynamic> history;
-  String player1;
-  String player2;
-  bool matchOver;
-
   final CalculatorBloc calculatorBloc;
   final CoinBloc coinBloc;
   final DiceBloc diceBloc;
   final TopBarBloc topBarBloc;
+
+  bool matchOver;
+  int game;
+  List<String> events;
+  Map<int, dynamic> history;
+  String player1;
+  String player2;
 
   StreamSubscription calculatorSubscription;
   StreamSubscription coinSubscription;
@@ -30,10 +30,10 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       @required this.topBarBloc,
       @required this.diceBloc,
       @required this.coinBloc}) {
-    history = <int, dynamic>{};
-    events = [];
-    game = 0;
     matchOver = false;
+    game = 0;
+    events = [];
+    history = <int, dynamic>{};
     player1 = 'You';
     player2 = 'Opponent';
     calculatorSubscription = calculatorBloc.listen((state) {
@@ -138,7 +138,6 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
 
   Stream<HistoryState> _mapHistoryPageEventToState(
       HistoryPageEvent event) async* {
-    print('${event.page}?');
     yield HistoryPage(event.page, history[event.page]);
   }
 
@@ -147,12 +146,10 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   }
 
   Stream<HistoryState> _mapHistoryResetEventToState() async* {
-    history = <int, dynamic>{};
-    events = [];
-    game = 0;
     matchOver = false;
-//    player1 = 'You';
-//    player2 = 'Opponent';
+    game = 0;
+    events = [];
+    history = <int, dynamic>{};
     yield HistoryInitial();
   }
 
@@ -171,10 +168,10 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
 
   @override
   Future<void> close() {
-    topBarSubscription.cancel();
-    diceSubscription.cancel();
-    coinSubscription.cancel();
     calculatorSubscription.cancel();
+    coinSubscription.cancel();
+    diceSubscription.cancel();
+    topBarSubscription.cancel();
     return super.close();
   }
 }

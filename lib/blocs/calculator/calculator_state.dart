@@ -41,3 +41,13 @@ class CalculatorP2LPUpdate extends CalculatorState {
   @override
   List<Object> get props => [p2LP, delta, add];
 }
+
+class CalculatorResume extends CalculatorState {
+  final int player;
+  final int resumeLP;
+
+  CalculatorResume(this.player, this.resumeLP);
+
+  @override
+  List<Object> get props => [player, resumeLP];
+}

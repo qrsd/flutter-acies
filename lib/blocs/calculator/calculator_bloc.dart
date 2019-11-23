@@ -1,16 +1,27 @@
 import 'dart:async';
 
+import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 
 import './bloc.dart';
+import '../blocs.dart';
 import '../../utils/constants.dart';
 
 class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
-  static String _delta;
   static int _p1LP;
   static int _p2LP;
+  static String _delta;
 
-  CalculatorBloc() {
+  final TopBarBloc topBarBloc;
+
+  StreamSubscription topBarSubscription;
+
+  CalculatorBloc({@required this.topBarBloc}) {
+    topBarSubscription = topBarBloc.listen((state) {
+      if (state is TopBarP1Win || state is TopBarP2Win) {
+        add(CalculatorResetEvent());
+      }
+    });
     _p1LP = START_LP;
     _p2LP = START_LP;
   }
@@ -30,6 +41,8 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
       yield* _mapCalculatorIntegerEventToState(event);
     } else if (event is CalculatorResetEvent) {
       yield* _mapCalculatorResetEventToState();
+    } else if (event is CalculatorResumeEvent) {
+      yield* _mapCalculatorResumeEventToState(event);
     }
   }
 
@@ -101,9 +114,24 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   }
 
   Stream<CalculatorState> _mapCalculatorResetEventToState() async* {
+    _delta = null;
     _p1LP = 8000;
     _p2LP = 8000;
-    _delta = null;
     yield CalculatorInitial();
+  }
+
+  Stream<CalculatorState> _mapCalculatorResumeEventToState(
+      CalculatorResumeEvent event) async* {
+    if (event.player == PLAYER_1) {
+      yield CalculatorResume(event.player, _p1LP);
+    } else {
+      yield CalculatorResume(event.player, _p2LP);
+    }
+  }
+
+  @override
+  Future<void> close() {
+    topBarSubscription.cancel();
+    return super.close();
   }
 }

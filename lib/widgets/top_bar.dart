@@ -7,7 +7,7 @@ import '../utils/constants.dart';
 class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double iconSize = MediaQuery.of(context).size.width * .08;
+    final double iconSize = MediaQuery.of(context).size.width * .08;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
@@ -29,10 +29,6 @@ class TopBar extends StatelessWidget {
                       : false;
                 },
                 builder: (context, state) {
-                  BlocProvider.of<CalculatorBloc>(context)
-                      .add(CalculatorResetEvent());
-                  BlocProvider.of<TimerBloc>(context)
-                      .add(TimerResetEvent(true));
                   return Row(
                     children: <Widget>[
                       Icon(
@@ -94,10 +90,6 @@ class TopBar extends StatelessWidget {
                       : false;
                 },
                 builder: (context, state) {
-                  BlocProvider.of<CalculatorBloc>(context)
-                      .add(CalculatorResetEvent());
-                  BlocProvider.of<TimerBloc>(context)
-                      .add(TimerResetEvent(true));
                   return Row(
                     children: <Widget>[
                       Icon(

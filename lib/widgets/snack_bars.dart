@@ -12,7 +12,7 @@ void noTitleSnackBar(BuildContext context, String message) {
     borderRadius: 8,
     backgroundColor: SECONDARY_COLOR,
     boxShadows: [
-      BoxShadow(
+      const BoxShadow(
         color: Colors.black45,
         offset: Offset(3, 3),
         blurRadius: 3,
@@ -34,7 +34,7 @@ void resetSnackBar(BuildContext context, String message) {
     borderRadius: 8,
     backgroundColor: SECONDARY_COLOR,
     boxShadows: [
-      BoxShadow(
+      const BoxShadow(
         color: Colors.black45,
         offset: Offset(3, 3),
         blurRadius: 3,
@@ -71,7 +71,7 @@ void titleSnackBar(BuildContext context, String title, message) {
     backgroundColor: SECONDARY_COLOR,
     overlayBlur: .7,
     boxShadows: [
-      BoxShadow(
+      const BoxShadow(
         color: Colors.black45,
         offset: Offset(3, 3),
         blurRadius: 3,

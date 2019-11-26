@@ -14,6 +14,9 @@ void main() {
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider<AdsBloc>(
+          builder: (context) => AdsBloc(),
+        ),
         BlocProvider<TopBarBloc>(
           builder: (context) => TopBarBloc(),
         ),

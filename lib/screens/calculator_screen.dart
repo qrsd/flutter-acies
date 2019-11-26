@@ -5,7 +5,19 @@ import '../blocs/blocs.dart';
 import '../utils/constants.dart';
 import '../widgets/widgets.dart';
 
-class CalculatorPage extends StatelessWidget {
+class CalculatorPage extends StatefulWidget {
+  @override
+  _CalculatorPageState createState() => _CalculatorPageState();
+}
+
+class _CalculatorPageState extends State<CalculatorPage> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<AdsBloc>(context).add(AdsShowEvent());
+    Future.delayed(const Duration(seconds: 3));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

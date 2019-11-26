@@ -12,8 +12,9 @@ class TopBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         InkWell(
-          onTap: () =>
-              BlocProvider.of<TopBarBloc>(context).add(TopBarBackEvent()),
+          onTap: () {
+            BlocProvider.of<TopBarBloc>(context).add(TopBarBackEvent());
+          },
           child: Icon(
             Icons.clear,
             size: iconSize,
@@ -114,8 +115,9 @@ class TopBar extends StatelessWidget {
           ),
         ),
         InkWell(
-          onTap: () =>
-              BlocProvider.of<TopBarBloc>(context).add(TopBarNotesEvent()),
+          onTap: () {
+            BlocProvider.of<TopBarBloc>(context).add(TopBarNotesEvent());
+          },
           child: Icon(
             Icons.create,
             size: iconSize,

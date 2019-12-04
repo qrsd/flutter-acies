@@ -13,8 +13,8 @@ class Game {
 
   Game() {
     this.id = 0;
-    this.p1LP = START_LP;
-    this.p2LP = START_LP;
+    this.p1LP = startLifePoints;
+    this.p2LP = startLifePoints;
     this.score = [0, 0];
     this.events = [];
     this.delta = '0000';

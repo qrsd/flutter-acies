@@ -5,19 +5,7 @@ import '../blocs/blocs.dart';
 import '../utils/constants.dart';
 import '../widgets/widgets.dart';
 
-class CalculatorPage extends StatefulWidget {
-  @override
-  _CalculatorPageState createState() => _CalculatorPageState();
-}
-
-class _CalculatorPageState extends State<CalculatorPage> {
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<AdsBloc>(context).add(AdsShowEvent());
-    Future.delayed(const Duration(seconds: 3));
-  }
-
+class CalculatorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,9 +24,9 @@ class _CalculatorPageState extends State<CalculatorPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                PlayerColumn(PLAYER_1),
+                PlayerColumn(playerOne),
                 CenterColumn(),
-                PlayerColumn(PLAYER_2),
+                PlayerColumn(playerTwo),
               ],
             ),
           ),

@@ -9,7 +9,7 @@ class SwipeBarBloc extends Bloc<SwipeBarEvent, SwipeBarState> {
   double _offset;
 
   SwipeBarBloc() {
-    _offset = SWIPE_BAR_START;
+    _offset = swipeBarStart;
   }
 
   @override
@@ -28,18 +28,13 @@ class SwipeBarBloc extends Bloc<SwipeBarEvent, SwipeBarState> {
 
   Stream<SwipeBarState> _mapBarMovingEventToState(
       SwipeBarMovingEvent event) async* {
-    double eventAsDouble = event.offsetDelta * .004;
-    _offset += eventAsDouble;
-    if (_offset >= -0.005) {
-      _offset = SWIPE_BAR_START;
-    } else if (_offset <= SWIPE_BAR_END) {
-      _offset = SWIPE_BAR_END;
-    }
+    double eventAsDouble = event.offsetDelta * .003;
+    _offset = (_offset + eventAsDouble).clamp(-.09, .0330);
     yield SwipeBarMoving(_offset);
   }
 
   Stream<SwipeBarState> _mapBarResetEventToState() async* {
-    _offset = SWIPE_BAR_START;
+    _offset = swipeBarStart;
     yield SwipeBarInitial();
   }
 }

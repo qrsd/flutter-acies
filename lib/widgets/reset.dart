@@ -5,6 +5,10 @@ import './widgets.dart';
 import '../blocs/blocs.dart';
 
 class ResetButton extends StatelessWidget {
+  final swipeBarIconSize;
+
+  ResetButton(this.swipeBarIconSize);
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -16,7 +20,10 @@ class ResetButton extends StatelessWidget {
         BlocProvider.of<SwipeBarBloc>(context).add(SwipeBarResetEvent());
         noTitleSnackBar(context, 'Match reset');
       },
-      child: const Image(image: AssetImage('assets/reset.png'), width: 35),
+      child: Image(
+        image: AssetImage('assets/reset.png'),
+        width: swipeBarIconSize,
+      ),
     );
   }
 }

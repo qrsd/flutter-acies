@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/blocs.dart';
 import '../models/models.dart';
-import '../utils/constants.dart';
 
 class KeyButton extends StatelessWidget {
   final Keys value;
@@ -13,32 +12,34 @@ class KeyButton extends StatelessWidget {
 
   Widget _buildChild(BuildContext context,
       {double buttonSize, double buttonHeight}) {
-    if (value.key == 'add0' ||
-        value.key == 'add1' ||
-        value.key == 'min0' ||
-        value.key == 'min1') {
+    double fontSize = (MediaQuery.of(context).size.width) / 16;
+    double winIconSize = (MediaQuery.of(context).size.width) / 3 / 2;
+    if (value.key.contains('add') || value.key.contains('min')) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(8),
-        child: RaisedButton(
-          color: value.key == 'add0' || value.key == 'add1'
-              ? Colors.green
-              : Colors.red,
-          elevation: 2,
-          onPressed: () {
-            SystemChrome.restoreSystemUIOverlays();
-            BlocProvider.of<CalculatorBloc>(context)
-                .add(CalculatorCalculationEvent(this.value));
-          },
-          child: Icon(
-            value.key == 'add0' || value.key == 'add1'
-                ? Icons.local_hospital
-                : Icons.gavel,
-            size: 70,
-            color: Colors.white,
+        child: Container(
+          height: (MediaQuery.of(context).size.height) * .3 * .3,
+          width: (MediaQuery.of(context).size.width) / 3 * .9,
+          child: RaisedButton(
+            color: value.key.contains('add') ? Colors.green : Colors.red,
+            elevation: 2,
+            onPressed: () {
+              SystemChrome.restoreSystemUIOverlays();
+              BlocProvider.of<CalculatorBloc>(context)
+                  .add(CalculatorCalculationEvent(this.value));
+            },
+            child: FittedBox(
+              fit: BoxFit.cover,
+              child: Icon(
+                value.key.contains('add') ? Icons.local_hospital : Icons.gavel,
+                size: 200,
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
       );
-    } else if (value.key == 'win0' || value.key == 'win1') {
+    } else if (value.key.contains('win')) {
       return InkWell(
         onTap: () {
           SystemChrome.restoreSystemUIOverlays();
@@ -46,10 +47,9 @@ class KeyButton extends StatelessWidget {
               .add(TopBarScoreEvent(this.value));
           BlocProvider.of<SwipeBarBloc>(context).add(SwipeBarResetEvent());
         },
-        highlightColor: SECONDARY_COLOR,
         child: Icon(
           Icons.check,
-          size: 65,
+          size: winIconSize,
           color: Colors.white,
         ),
       );
@@ -58,10 +58,9 @@ class KeyButton extends StatelessWidget {
         width: buttonSize,
         height: buttonHeight,
         child: FlatButton(
-          color: PRIMARY_COLOR,
           onPressed: () {
             SystemChrome.restoreSystemUIOverlays();
-            value.key == 'hlf0' || value.key == 'hlf1'
+            value.key.contains('hlf')
                 ? BlocProvider.of<CalculatorBloc>(context)
                     .add(CalculatorCalculationEvent(this.value))
                 : value.key == 'C'
@@ -71,9 +70,9 @@ class KeyButton extends StatelessWidget {
                         .add(CalculatorIntegerEvent(this.value));
           },
           child: Text(
-            value.key == 'hlf0' || value.key == 'hlf1' ? '1/2' : value.key,
+            value.key.contains('hlf') ? '1/2' : value.key,
             style: TextStyle(
-              fontSize: 25,
+              fontSize: fontSize,
               color: Colors.white,
             ),
           ),
@@ -84,9 +83,9 @@ class KeyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double buttonSize = (MediaQuery.of(context).size.width) / 3;
-    double buttonHeight = (MediaQuery.of(context).size.height * .506) / 5;
+    double buttonWidth = (MediaQuery.of(context).size.width) / 3;
+    double buttonHeight = (MediaQuery.of(context).size.height * .50) / 5;
     return _buildChild(context,
-        buttonSize: buttonSize, buttonHeight: buttonHeight);
+        buttonSize: buttonWidth, buttonHeight: buttonHeight);
   }
 }

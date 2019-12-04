@@ -2,6 +2,7 @@ export './coin.dart';
 export './dice.dart';
 export './history.dart';
 export './keybutton.dart';
+export './notes.dart';
 export './pad.dart';
 export './player_widgets.dart';
 export './reset.dart';

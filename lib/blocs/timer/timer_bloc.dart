@@ -9,7 +9,7 @@ import '../../utils/constants.dart';
 import '../../utils/ticker.dart';
 
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
-  final int _duration = TIMER_MINUTES * 60;
+  final int _duration = timerMinutes * 60;
   final TopBarBloc topBarBloc;
   Ticker _ticker;
 

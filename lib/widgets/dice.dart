@@ -5,6 +5,10 @@ import '../blocs/blocs.dart';
 import '../utils/constants.dart';
 
 class Dice extends StatelessWidget {
+  final swipeBarIconSize;
+
+  Dice(this.swipeBarIconSize);
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -24,7 +28,7 @@ class Dice extends StatelessWidget {
                       borderRadius: const BorderRadius.all(
                         Radius.circular(10),
                       ),
-                      color: SECONDARY_COLOR
+                      color: secondaryColor
                           .withOpacity(animation.value == 1 ? 1 : 0),
                       boxShadow: animation.value == 1
                           ? [
@@ -58,9 +62,9 @@ class Dice extends StatelessWidget {
       },
       child: Hero(
         tag: 'die',
-        child: const Image(
+        child: Image(
           image: AssetImage('assets/dice/0.png'),
-          width: 35,
+          width: swipeBarIconSize,
         ),
       ),
     );

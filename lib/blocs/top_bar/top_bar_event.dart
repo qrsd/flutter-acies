@@ -11,8 +11,6 @@ abstract class TopBarEvent extends Equatable {
 
 class TopBarBackEvent extends TopBarEvent {}
 
-class TopBarNotesEvent extends TopBarEvent {}
-
 class TopBarResetEvent extends TopBarEvent {}
 
 class TopBarScoreEvent extends TopBarEvent {

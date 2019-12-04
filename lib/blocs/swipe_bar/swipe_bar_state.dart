@@ -9,7 +9,7 @@ abstract class SwipeBarState extends Equatable {
 }
 
 class SwipeBarInitial extends SwipeBarState {
-  final double offset = SWIPE_BAR_START;
+  final double offset = swipeBarStart;
 
   @override
   List<double> get props => [offset];

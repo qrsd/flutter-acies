@@ -24,8 +24,6 @@ class TopBarBloc extends Bloc<TopBarEvent, TopBarState> {
   ) async* {
     if (event is TopBarResetEvent) {
       yield* _mapTopBarResetEventToState();
-    } else if (event is TopBarNotesEvent) {
-      yield* _mapTopBarNotesEventToState();
     } else if (event is TopBarBackEvent) {
       yield* _mapTopBarBackEventToState();
     } else if (event is TopBarScoreEvent) {
@@ -35,10 +33,6 @@ class TopBarBloc extends Bloc<TopBarEvent, TopBarState> {
 
   Stream<TopBarState> _mapTopBarBackEventToState() async* {
     yield TopBarBack();
-  }
-
-  Stream<TopBarState> _mapTopBarNotesEventToState() async* {
-    yield TopBarNotes();
   }
 
   Stream<TopBarState> _mapTopBarResetEventToState() async* {

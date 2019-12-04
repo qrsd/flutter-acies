@@ -5,7 +5,8 @@ import './bloc.dart';
 
 class AdsBloc extends Bloc<AdsEvent, AdsState> {
   final appId = 'ca-app-pub-9432106991309535~9803444422';
-  final interId = 'ca-app-pub-9432106991309535/4476425117';
+  // final interId = 'ca-app-pub-9432106991309535/4476425117';
+  final interId = 'ca-app-pub-3940256099942544/8691691433';
 
   InterstitialAd _ad;
 

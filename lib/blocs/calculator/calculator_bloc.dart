@@ -22,8 +22,8 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
         add(CalculatorResetEvent());
       }
     });
-    _p1LP = START_LP;
-    _p2LP = START_LP;
+    _p1LP = startLifePoints;
+    _p2LP = startLifePoints;
   }
 
   @override
@@ -122,7 +122,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
 
   Stream<CalculatorState> _mapCalculatorResumeEventToState(
       CalculatorResumeEvent event) async* {
-    if (event.player == PLAYER_1) {
+    if (event.player == playerOne) {
       yield CalculatorResume(event.player, _p1LP);
     } else {
       yield CalculatorResume(event.player, _p2LP);

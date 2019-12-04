@@ -18,8 +18,6 @@ class TopBarBack extends TopBarState {}
 
 class TopBarMatchOver extends TopBarState {}
 
-class TopBarNotes extends TopBarState {}
-
 class TopBarP1Win extends TopBarState {
   final int score;
 

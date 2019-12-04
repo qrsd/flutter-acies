@@ -13,9 +13,7 @@ class Pad extends StatelessWidget {
         topRight: Radius.circular(10),
       ),
       child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * .506,
-        color: PRIMARY_COLOR,
+        color: primaryColor,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[

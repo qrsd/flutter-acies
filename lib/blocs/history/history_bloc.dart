@@ -112,7 +112,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
 
   Stream<HistoryState> _mapHistoryLPEventToState(HistoryLPEvent event) async* {
     String lpUpdate;
-    lpUpdate = event.player == PLAYER_1 ? '$player1' : '$player2';
+    lpUpdate = event.player == playerOne ? '$player1' : '$player2';
     lpUpdate = event.add
         ? '$lpUpdate +${event.delta.toString()}'
         : '$lpUpdate -${event.delta.toString()}';
@@ -128,7 +128,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
 
   Stream<HistoryState> _mapHistoryNameChangeEventToState(
       HistoryNameChangeEvent event) async* {
-    if (event.player == PLAYER_1) {
+    if (event.player == playerOne) {
       player1 = event.name;
     } else {
       player2 = event.name;
@@ -156,7 +156,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   Stream<HistoryState> _mapHistoryWinEventToState(
       HistoryWinEvent event) async* {
     String winUpdate;
-    winUpdate = event.player == PLAYER_1 ? '$player1 Won' : '$player2 Won';
+    winUpdate = event.player == playerOne ? '$player1 Won' : '$player2 Won';
     events.add(winUpdate);
     history[game] = events;
     events = [];

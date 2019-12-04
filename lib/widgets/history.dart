@@ -5,6 +5,10 @@ import '../blocs/blocs.dart';
 import '../utils/constants.dart';
 
 class History extends StatelessWidget {
+  final swipeBarIconSize;
+
+  History(this.swipeBarIconSize);
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -22,7 +26,7 @@ class History extends StatelessWidget {
                         borderRadius: const BorderRadius.all(
                           Radius.circular(10),
                         ),
-                        color: SECONDARY_COLOR
+                        color: secondaryColor
                             .withOpacity(animation.value == 1 ? 1 : 0),
                         boxShadow: animation.value == 1
                             ? [
@@ -54,7 +58,7 @@ class History extends StatelessWidget {
                                 tag: 'history',
                                 child: Image(
                                   image: AssetImage('assets/scroll/$_page.png'),
-                                  width: 45,
+                                  width: MediaQuery.of(context).size.width / 12,
                                 ),
                               ),
                               Expanded(
@@ -89,9 +93,9 @@ class History extends StatelessWidget {
       },
       child: Hero(
         tag: 'history',
-        child: const Image(
+        child: Image(
           image: AssetImage('assets/scroll/base.png'),
-          width: 35,
+          width: swipeBarIconSize,
         ),
       ),
     );
@@ -125,6 +129,7 @@ class EventItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double fontSize = MediaQuery.of(context).size.width / 22;
     if (event == null) {
       return Text('');
     } else {
@@ -135,17 +140,19 @@ class EventItem extends StatelessWidget {
       } else if (splitEvent[1][0] == '-') {
         textColor = Colors.red[900];
       } else if (splitEvent[1].contains('Won')) {
-        textColor = PRIMARY_COLOR;
+        textColor = primaryColor;
       }
       return Material(
-        color: SECONDARY_COLOR,
+        color: secondaryColor,
         child: Row(
           children: <Widget>[
             Expanded(
               child: Center(
                 child: Text(
                   splitEvent[0],
-                  style: TextStyle(fontSize: 22),
+                  style: TextStyle(
+                    fontSize: fontSize,
+                  ),
                 ),
               ),
             ),
@@ -154,7 +161,7 @@ class EventItem extends StatelessWidget {
                 child: Text(
                   splitEvent[1],
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: fontSize,
                     color: textColor,
                   ),
                 ),

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import './widgets.dart';
 import '../blocs/blocs.dart';
 import '../utils/constants.dart';
 
 class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final double iconSize = MediaQuery.of(context).size.width * .08;
+    double topBarIconSize = MediaQuery.of(context).size.width / 13;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
@@ -17,7 +18,7 @@ class TopBar extends StatelessWidget {
           },
           child: Icon(
             Icons.clear,
-            size: iconSize,
+            size: topBarIconSize,
           ),
         ),
         Container(
@@ -29,22 +30,22 @@ class TopBar extends StatelessWidget {
                       ? true
                       : false;
                 },
-                builder: (context, state) {
+                builder: (_, state) {
                   return Row(
                     children: <Widget>[
                       Icon(
                         2 == (state.props[0])
                             ? Icons.check_circle_outline
                             : Icons.radio_button_unchecked,
-                        color: 2 == (state.props[0]) ? SECONDARY_COLOR : null,
-                        size: iconSize,
+                        color: 2 == (state.props[0]) ? secondaryColor : null,
+                        size: topBarIconSize,
                       ),
                       Icon(
                         1 <= (state.props[0])
                             ? Icons.check_circle_outline
                             : Icons.radio_button_unchecked,
-                        color: 1 <= (state.props[0]) ? SECONDARY_COLOR : null,
-                        size: iconSize,
+                        color: 1 <= (state.props[0]) ? secondaryColor : null,
+                        size: topBarIconSize,
                       ),
                     ],
                   );
@@ -76,8 +77,8 @@ class TopBar extends StatelessWidget {
                           .add(TimerResetEvent(false)),
                       child: Text(
                         '$minutesStr:$secondsStr',
-                        style: const TextStyle(
-                          fontSize: 25,
+                        style: TextStyle(
+                          fontSize: (MediaQuery.of(context).size.width) / 14,
                         ),
                       ),
                     );
@@ -90,22 +91,22 @@ class TopBar extends StatelessWidget {
                       ? true
                       : false;
                 },
-                builder: (context, state) {
+                builder: (_, state) {
                   return Row(
                     children: <Widget>[
                       Icon(
                         1 <= (state.props[0])
                             ? Icons.check_circle_outline
                             : Icons.radio_button_unchecked,
-                        color: 1 <= (state.props[0]) ? SECONDARY_COLOR : null,
-                        size: iconSize,
+                        color: 1 <= (state.props[0]) ? secondaryColor : null,
+                        size: topBarIconSize,
                       ),
                       Icon(
                         2 == (state.props[0])
                             ? Icons.check_circle_outline
                             : Icons.radio_button_unchecked,
-                        color: 2 == (state.props[0]) ? SECONDARY_COLOR : null,
-                        size: iconSize,
+                        color: 2 == (state.props[0]) ? secondaryColor : null,
+                        size: topBarIconSize,
                       ),
                     ],
                   );
@@ -114,15 +115,7 @@ class TopBar extends StatelessWidget {
             ],
           ),
         ),
-        InkWell(
-          onTap: () {
-            BlocProvider.of<TopBarBloc>(context).add(TopBarNotesEvent());
-          },
-          child: Icon(
-            Icons.create,
-            size: iconSize,
-          ),
-        ),
+        Notes(topBarIconSize),
       ],
     );
   }

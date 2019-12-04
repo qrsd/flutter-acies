@@ -15,9 +15,6 @@ void main() {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider<AdsBloc>(
-          create: (context) => AdsBloc(),
-        ),
         BlocProvider<CoinBloc>(
           create: (context) => CoinBloc(),
         ),
@@ -60,7 +57,6 @@ void main() {
 
 class CalculatorApp extends StatelessWidget {
   Future<Widget> customFunction(context) {
-    BlocProvider.of<AdsBloc>(context).add(AdsShowEvent());
     return Future.value(CalculatorPage());
   }
 

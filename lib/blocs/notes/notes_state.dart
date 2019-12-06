@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 abstract class NotesState extends Equatable {
   const NotesState();
@@ -15,6 +15,17 @@ class NotesInitial extends NotesState {
 
   @override
   List<Object> get props => [noteController, titleController];
+}
+
+class NotesReset extends NotesState {}
+
+class NotesSaving extends NotesState {
+  final Map<String, dynamic> notes;
+
+  NotesSaving(this.notes);
+
+  @override
+  List<Object> get props => [notes];
 }
 
 class NotesShow extends NotesState {

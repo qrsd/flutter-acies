@@ -22,8 +22,8 @@ class PlayerColumn extends StatelessWidget {
         children: <Widget>[
           PlayerField(player),
           LifePoints(player),
-          KeyButton(player == playerOne ? KeyValues.add0 : KeyValues.add1),
-          KeyButton(player == playerOne ? KeyValues.min0 : KeyValues.min1),
+          KeyButton(player == playerOneVal ? KeyValues.add0 : KeyValues.add1),
+          KeyButton(player == playerOneVal ? KeyValues.min0 : KeyValues.min1),
         ],
       ),
     );
@@ -42,7 +42,7 @@ class PlayerField extends StatelessWidget {
       child: TextFormField(
         autocorrect: false,
         inputFormatters: [LengthLimitingTextInputFormatter(8)],
-        initialValue: this.player == playerOne ? 'You' : 'Opponent',
+        initialValue: this.player == playerOneVal ? 'You' : 'Opponent',
         style: TextStyle(fontSize: (MediaQuery.of(context).size.width) / 18),
         textAlign: TextAlign.center,
         cursorColor: secondaryColor,
@@ -109,8 +109,8 @@ class _LifePointsState extends State<LifePoints>
   Widget build(BuildContext context) {
     return BlocBuilder<CalculatorBloc, CalculatorState>(
       builder: (_, state) {
-        if (widget.player == playerOne && state is CalculatorP1LPUpdate ||
-            (widget.player == playerTwo && state is CalculatorP2LPUpdate)) {
+        if (widget.player == playerOneVal && state is CalculatorP1LPUpdate ||
+            (widget.player == playerTwoVal && state is CalculatorP2LPUpdate)) {
           _animationDelta = state.props[0];
           _tween.begin = _tween.end;
           _tween.end = _animationDelta;

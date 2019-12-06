@@ -25,12 +25,29 @@ class HistoryPage extends HistoryState {
 }
 
 class HistoryShow extends HistoryState {
-  final List<String> history;
+  final String playerOne;
+  final String playerTwo;
+  final Map<int, dynamic> history;
 
-  HistoryShow(this.history);
+  HistoryShow(this.playerOne, this.playerTwo, this.history);
 
   @override
-  List<Object> get props => [history];
+  List<Object> get props => [playerOne, playerTwo, history];
+}
+
+class HistorySaving extends HistoryState {
+  final String playerOne;
+  final String playerTwo;
+  final int playerOneScore;
+  final int playerTwoScore;
+  final Map<int, dynamic> history;
+
+  HistorySaving(this.playerOne, this.playerTwo, this.playerOneScore,
+      this.playerTwoScore, this.history);
+
+  @override
+  List<Object> get props =>
+      [playerOne, playerTwo, playerOneScore, playerTwoScore, history];
 }
 
 class HistoryUpdated extends HistoryState {}

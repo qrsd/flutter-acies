@@ -24,9 +24,9 @@ class CalculatorPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                PlayerColumn(playerOne),
+                PlayerColumn(playerOneVal),
                 CenterColumn(),
-                PlayerColumn(playerTwo),
+                PlayerColumn(playerTwoVal),
               ],
             ),
           ),

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 
@@ -13,12 +12,13 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   final DiceBloc diceBloc;
   final TopBarBloc topBarBloc;
 
-  bool matchOver;
   int game;
   List<String> events;
   Map<int, dynamic> history;
-  String player1;
-  String player2;
+  String playerOne;
+  String playerTwo;
+  int playerOneScore;
+  int playerTwoScore;
 
   StreamSubscription calculatorSubscription;
   StreamSubscription coinSubscription;
@@ -30,12 +30,13 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       @required this.topBarBloc,
       @required this.diceBloc,
       @required this.coinBloc}) {
-    matchOver = false;
     game = 0;
     events = [];
     history = <int, dynamic>{};
-    player1 = 'You';
-    player2 = 'Opponent';
+    playerOne = 'You';
+    playerTwo = 'Opponent';
+    playerOneScore = 0;
+    playerTwoScore = 0;
     calculatorSubscription = calculatorBloc.listen((state) {
       if (state is CalculatorP1LPUpdate) {
         add(HistoryLPEvent(0, state.delta, state.add));
@@ -55,9 +56,9 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     });
     topBarSubscription = topBarBloc.listen((state) {
       if (state is TopBarP1Win) {
-        add(HistoryWinEvent(0));
+        add(HistoryWinEvent(playerOneVal));
       } else if (state is TopBarP2Win) {
-        add(HistoryWinEvent(1));
+        add(HistoryWinEvent(playerTwoVal));
       } else if (state is TopBarMatchOver) {
         add(HistoryMatchOverEvent());
       }
@@ -112,7 +113,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
 
   Stream<HistoryState> _mapHistoryLPEventToState(HistoryLPEvent event) async* {
     String lpUpdate;
-    lpUpdate = event.player == playerOne ? '$player1' : '$player2';
+    lpUpdate = event.player == playerOneVal ? '$playerOne' : '$playerTwo';
     lpUpdate = event.add
         ? '$lpUpdate +${event.delta.toString()}'
         : '$lpUpdate -${event.delta.toString()}';
@@ -122,16 +123,16 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   }
 
   Stream<HistoryState> _mapHistoryMatchOverEventToState() async* {
-    matchOver = true;
-    yield HistoryUpdated();
+    yield HistorySaving(
+        playerOne, playerTwo, playerOneScore, playerTwoScore, history);
   }
 
   Stream<HistoryState> _mapHistoryNameChangeEventToState(
       HistoryNameChangeEvent event) async* {
-    if (event.player == playerOne) {
-      player1 = event.name;
+    if (event.player == playerOneVal) {
+      playerOne = event.name;
     } else {
-      player2 = event.name;
+      playerTwo = event.name;
     }
     yield HistoryUpdated();
   }
@@ -146,23 +147,28 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   }
 
   Stream<HistoryState> _mapHistoryResetEventToState() async* {
-    matchOver = false;
     game = 0;
     events = [];
     history = <int, dynamic>{};
+    playerOneScore = 0;
+    playerTwoScore = 0;
     yield HistoryInitial();
   }
 
   Stream<HistoryState> _mapHistoryWinEventToState(
       HistoryWinEvent event) async* {
     String winUpdate;
-    winUpdate = event.player == playerOne ? '$player1 Won' : '$player2 Won';
+    if (event.player == playerOneVal) {
+      winUpdate = '$playerOne Won';
+      ++playerOneScore;
+    } else {
+      winUpdate = '$playerTwo Won';
+      ++playerTwoScore;
+    }
     events.add(winUpdate);
     history[game] = events;
     events = [];
-    if (!matchOver) {
-      ++game;
-    }
+    ++game;
     yield HistoryWin(game);
   }
 

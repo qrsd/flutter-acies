@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 const swipeBarStart = 0.033;
 const swipeBarEnd = -.09;
-const playerOne = 0;
-const playerTwo = 1;
+const playerOneVal = 0;
+const playerTwoVal = 1;
 const startLifePoints = 8000;
 const timerMinutes = 40;
 const primaryColor = const Color(0xFF212327);

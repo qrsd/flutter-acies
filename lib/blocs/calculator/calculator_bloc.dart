@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 
@@ -122,7 +121,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
 
   Stream<CalculatorState> _mapCalculatorResumeEventToState(
       CalculatorResumeEvent event) async* {
-    if (event.player == playerOne) {
+    if (event.player == playerOneVal) {
       yield CalculatorResume(event.player, _p1LP);
     } else {
       yield CalculatorResume(event.player, _p2LP);

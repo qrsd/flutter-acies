@@ -48,18 +48,18 @@ class TopBarBloc extends Bloc<TopBarEvent, TopBarState> {
     if (!_gameOver) {
       if (val.contains('0')) {
         ++_p1Score;
+        yield TopBarP1Win(_p1Score);
         if (_p1Score == 2) {
           _gameOver = true;
           yield TopBarMatchOver();
         }
-        yield TopBarP1Win(_p1Score);
       } else {
         ++_p2Score;
+        yield TopBarP2Win(_p2Score);
         if (_p2Score == 2) {
           _gameOver = true;
           yield TopBarMatchOver();
         }
-        yield TopBarP2Win(_p2Score);
       }
     }
   }

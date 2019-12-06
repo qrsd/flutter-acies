@@ -62,6 +62,7 @@ void resetSnackBar(context, String message) {
         BlocProvider.of<CalculatorBloc>(context).add(CalculatorResetEvent());
         BlocProvider.of<TimerBloc>(context).add(TimerResetEvent(true));
         BlocProvider.of<HistoryBloc>(context).add(HistoryResetEvent());
+        BlocProvider.of<NotesBloc>(context).add(NotesResetEvent());
         noTitleSnackBar(context, 'Match reset');
       },
       child: Image(

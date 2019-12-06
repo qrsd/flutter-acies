@@ -18,6 +18,7 @@ class ResetButton extends StatelessWidget {
         BlocProvider.of<TimerBloc>(context).add(TimerResetEvent(true));
         BlocProvider.of<TopBarBloc>(context).add(TopBarResetEvent());
         BlocProvider.of<SwipeBarBloc>(context).add(SwipeBarResetEvent());
+        BlocProvider.of<NotesBloc>(context).add(NotesResetEvent());
         noTitleSnackBar(context, 'Match reset');
       },
       child: Image(

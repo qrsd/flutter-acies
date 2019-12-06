@@ -7,6 +7,10 @@ abstract class NotesEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class NotesMatchOverEvent extends NotesEvent {}
+
+class NotesResetEvent extends NotesEvent {}
+
 class NotesShowEvent extends NotesEvent {}
 
 class NotesUpdateEvent extends NotesEvent {

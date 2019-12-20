@@ -1,111 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/blocs.dart';
 import '../utils/constants.dart';
 
-class History extends StatelessWidget {
-  final swipeBarIconSize;
+/// These widgets are shared between calculator screen and game list screen
+/// in regards to their history widget.
 
-  History(this.swipeBarIconSize);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        BlocProvider.of<HistoryBloc>(context).add(HistoryPressedEvent());
-        Navigator.of(context)
-            .push(
-              PageRouteBuilder(
-                opaque: false,
-                barrierDismissible: true,
-                pageBuilder: (context, animation, __) {
-                  return Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        color: secondaryColor
-                            .withOpacity(animation.value == 1 ? 1 : 0),
-                        boxShadow: animation.value == 1
-                            ? [
-                                const BoxShadow(
-                                  color: Colors.black45,
-                                  offset: Offset(3, 3),
-                                  blurRadius: 10,
-                                ),
-                              ]
-                            : null,
-                      ),
-                      height: MediaQuery.of(context).size.height * .4,
-                      width: MediaQuery.of(context).size.width * .6,
-                      alignment: Alignment.topCenter,
-                      padding: const EdgeInsets.only(top: 5),
-                      child: BlocBuilder<HistoryBloc, HistoryState>(
-                        condition: (_, state) {
-                          return state is HistoryPage ? true : false;
-                        },
-                        builder: (context, state) {
-                          final _page = state.props[0];
-                          var events;
-                          if (state is HistoryPage) {
-                            events = state.history;
-                          }
-                          return Column(
-                            children: <Widget>[
-                              Hero(
-                                tag: 'history',
-                                child: Image(
-                                  image: AssetImage('assets/scroll/$_page.png'),
-                                  width: MediaQuery.of(context).size.width / 12,
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: PageView(
-                                    physics: AlwaysScrollableScrollPhysics(),
-                                    controller:
-                                        PageController(initialPage: _page),
-                                    onPageChanged: (page) =>
-                                        BlocProvider.of<HistoryBloc>(context)
-                                            .add(HistoryPageEvent(page)),
-                                    children: <Widget>[
-                                      ListBuilder(events),
-                                      ListBuilder(events),
-                                      ListBuilder(events)
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                  );
-                },
-              ),
-            )
-            .then((_) => BlocProvider.of<SwipeBarBloc>(context)
-                .add(SwipeBarResetEvent()));
-      },
-      child: Hero(
-        tag: 'history',
-        child: Image(
-          image: AssetImage('assets/scroll/base.png'),
-          width: swipeBarIconSize,
-        ),
-      ),
-    );
-  }
-}
-
+/// Builds a list view of all events in History List.
 class ListBuilder extends StatelessWidget {
-  final events;
+  /// [events] is a list of events extracted from the history map.
+  final List<dynamic> events;
 
-  ListBuilder(this.events);
+  /// [type] of parent
+  final int type;
+
+  /// Constructor
+  ListBuilder(this.events, this.type);
 
   @override
   Widget build(BuildContext context) {
@@ -115,35 +24,41 @@ class ListBuilder extends StatelessWidget {
         itemCount: events?.length ?? 0,
         itemBuilder: (context, i) {
           final event = events[i];
-          return EventItem(event);
+          return EventItem(event, type);
         },
       ),
     );
   }
 }
 
+/// Different events have different styling, this separates events and assigns styling .
 class EventItem extends StatelessWidget {
-  final event;
+  /// [event] individual event.
+  final String event;
 
-  EventItem(this.event);
+  /// [type] of parent
+  final int type;
+
+  /// Constructor
+  EventItem(this.event, this.type);
 
   @override
   Widget build(BuildContext context) {
-    double fontSize = MediaQuery.of(context).size.width / 22;
+    var fontSize = MediaQuery.of(context).size.width / 22;
     if (event == null) {
       return Text('');
     } else {
       final splitEvent = event.split(' ');
-      Color textColor = Colors.white;
+      var textColor = Colors.white;
       if (splitEvent[1][0] == '+') {
         textColor = Colors.green[800];
       } else if (splitEvent[1][0] == '-') {
         textColor = Colors.red[900];
       } else if (splitEvent[1].contains('Won')) {
-        textColor = primaryColor;
+        textColor = type == calculatorHistory ? primaryColor : secondaryColor;
       }
       return Material(
-        color: secondaryColor,
+        color: type == calculatorHistory ? secondaryColor : primaryColor,
         child: Row(
           children: <Widget>[
             Expanded(

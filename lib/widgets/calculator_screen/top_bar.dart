@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../blocs/blocs.dart';
+import '../../screens/screens.dart';
+import '../../utils/constants.dart';
+import '../route_builder.dart';
 import './widgets.dart';
-import '../blocs/blocs.dart';
-import '../utils/constants.dart';
 
+/// Top Bar widget for calculator screen.
 class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double topBarIconSize = MediaQuery.of(context).size.width / 13;
+    var iconSize = MediaQuery.of(context).size.width / 13;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         InkWell(
-          onTap: () {
-            BlocProvider.of<TopBarBloc>(context).add(TopBarBackEvent());
-          },
+          onTap: () => Navigator.of(context).push(fullRouteBuilder(
+              context, GamesListScreen(), Offset(1.0, 0.0), Offset.zero)),
           child: Icon(
-            Icons.clear,
-            size: topBarIconSize,
+            Icons.arrow_back_ios,
+            size: iconSize,
           ),
         ),
         Container(
@@ -38,14 +40,14 @@ class TopBar extends StatelessWidget {
                             ? Icons.check_circle_outline
                             : Icons.radio_button_unchecked,
                         color: 2 == (state.props[0]) ? secondaryColor : null,
-                        size: topBarIconSize,
+                        size: iconSize,
                       ),
                       Icon(
                         1 <= (state.props[0])
                             ? Icons.check_circle_outline
                             : Icons.radio_button_unchecked,
                         color: 1 <= (state.props[0]) ? secondaryColor : null,
-                        size: topBarIconSize,
+                        size: iconSize,
                       ),
                     ],
                   );
@@ -58,11 +60,11 @@ class TopBar extends StatelessWidget {
                     return state is TimerSnack ? false : true;
                   },
                   builder: (context, state) {
-                    final String minutesStr = ((state.duration / 60) % 60)
+                    final minutesStr = ((state.duration / 60) % 60)
                         .floor()
                         .toString()
                         .padLeft(2, '0');
-                    final String secondsStr = (state.duration % 60)
+                    final secondsStr = (state.duration % 60)
                         .floor()
                         .toString()
                         .padLeft(2, '0');
@@ -74,7 +76,7 @@ class TopBar extends StatelessWidget {
                       onLongPress: () => BlocProvider.of<TimerBloc>(context)
                           .add(TimerPauseEvent()),
                       onPanUpdate: (_) => BlocProvider.of<TimerBloc>(context)
-                          .add(TimerResetEvent(false)),
+                          .add(TimerResetEvent(matchReset: false)),
                       child: Text(
                         '$minutesStr:$secondsStr',
                         style: TextStyle(
@@ -99,14 +101,14 @@ class TopBar extends StatelessWidget {
                             ? Icons.check_circle_outline
                             : Icons.radio_button_unchecked,
                         color: 1 <= (state.props[0]) ? secondaryColor : null,
-                        size: topBarIconSize,
+                        size: iconSize,
                       ),
                       Icon(
                         2 == (state.props[0])
                             ? Icons.check_circle_outline
                             : Icons.radio_button_unchecked,
                         color: 2 == (state.props[0]) ? secondaryColor : null,
-                        size: topBarIconSize,
+                        size: iconSize,
                       ),
                     ],
                   );
@@ -115,7 +117,7 @@ class TopBar extends StatelessWidget {
             ],
           ),
         ),
-        Notes(topBarIconSize),
+        Notes(iconSize),
       ],
     );
   }

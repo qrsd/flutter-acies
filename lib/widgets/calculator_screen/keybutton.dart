@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/blocs.dart';
-import '../models/models.dart';
+import '../../blocs/blocs.dart';
+import '../../models/models.dart';
 
+/// Creates all key button widgets using the key values model.
 class KeyButton extends StatelessWidget {
+  /// [value] provided by key values model.
   final Keys value;
 
+  /// Constructor
   KeyButton(this.value);
 
   Widget _buildChild(BuildContext context,
       {double buttonSize, double buttonHeight}) {
-    double fontSize = (MediaQuery.of(context).size.width) / 16;
-    double winIconSize = (MediaQuery.of(context).size.width) / 3 / 2;
+    var fontSize = (MediaQuery.of(context).size.width) / 16;
+    var winIconSize = (MediaQuery.of(context).size.width) / 3 / 2;
     if (value.key.contains('add') || value.key.contains('min')) {
       return ClipRRect(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(8.0),
         child: Container(
           height: (MediaQuery.of(context).size.height) * .3 * .3,
           width: (MediaQuery.of(context).size.width) / 3 * .9,
@@ -26,7 +29,7 @@ class KeyButton extends StatelessWidget {
             onPressed: () {
               SystemChrome.restoreSystemUIOverlays();
               BlocProvider.of<CalculatorBloc>(context)
-                  .add(CalculatorCalculationEvent(this.value));
+                  .add(CalculatorCalculationEvent(value));
             },
             child: FittedBox(
               fit: BoxFit.cover,
@@ -43,8 +46,7 @@ class KeyButton extends StatelessWidget {
       return InkWell(
         onTap: () {
           SystemChrome.restoreSystemUIOverlays();
-          BlocProvider.of<TopBarBloc>(context)
-              .add(TopBarScoreEvent(this.value));
+          BlocProvider.of<TopBarBloc>(context).add(TopBarScoreEvent(value));
           BlocProvider.of<SwipeBarBloc>(context).add(SwipeBarResetEvent());
         },
         child: Icon(
@@ -62,12 +64,12 @@ class KeyButton extends StatelessWidget {
             SystemChrome.restoreSystemUIOverlays();
             value.key.contains('hlf')
                 ? BlocProvider.of<CalculatorBloc>(context)
-                    .add(CalculatorCalculationEvent(this.value))
+                    .add(CalculatorCalculationEvent(value))
                 : value.key == 'C'
                     ? BlocProvider.of<CalculatorBloc>(context)
                         .add(CalculatorClearEvent())
                     : BlocProvider.of<CalculatorBloc>(context)
-                        .add(CalculatorIntegerEvent(this.value));
+                        .add(CalculatorIntegerEvent(value));
           },
           child: Text(
             value.key.contains('hlf') ? '1/2' : value.key,
@@ -83,8 +85,8 @@ class KeyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double buttonWidth = (MediaQuery.of(context).size.width) / 3;
-    double buttonHeight = (MediaQuery.of(context).size.height * .50) / 5;
+    var buttonWidth = (MediaQuery.of(context).size.width) / 3;
+    var buttonHeight = (MediaQuery.of(context).size.height * .50) / 5;
     return _buildChild(context,
         buttonSize: buttonWidth, buttonHeight: buttonHeight);
   }

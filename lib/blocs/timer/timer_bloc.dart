@@ -1,32 +1,35 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import './bloc.dart';
-import '../blocs.dart';
 import '../../utils/constants.dart';
 import '../../utils/ticker.dart';
+import '../blocs.dart';
+import './bloc.dart';
 
+/// Timer BLoC.
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
   final int _duration = timerMinutes * 60;
+
+  /// [topBarBloc] subscription to fire a reset event if a players wins a game.
   final TopBarBloc topBarBloc;
   Ticker _ticker;
 
   StreamSubscription<int> _tickerSubscription;
   StreamSubscription _topBarSubscription;
 
+  /// Constructor
   TimerBloc({@required this.topBarBloc, @required Ticker ticker}) {
     _topBarSubscription = topBarBloc.listen((state) {
       if (state is TopBarP1Win || state is TopBarP2Win) {
-        add(TimerResetEvent(true));
+        add(TimerResetEvent(matchReset: true));
       }
     });
     _ticker = ticker;
   }
 
   @override
-  TimerState get initialState => TimerReady(false, _duration);
+  TimerState get initialState => TimerReady(_duration, matchReset: false);
 
   @override
   Stream<TimerState> mapEventToState(
@@ -57,7 +60,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
 
   Stream<TimerState> _mapTimerResetEventToState(TimerResetEvent event) async* {
     _tickerSubscription?.cancel();
-    yield TimerReady(event.matchReset, _duration);
+    yield TimerReady(_duration, matchReset: event.matchReset);
   }
 
   Stream<TimerState> _mapTimerResumeEventToState(

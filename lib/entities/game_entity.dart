@@ -1,16 +1,33 @@
 import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
+/// Game entities used when loading/saving to file storage.
 class GameEntity extends Equatable {
-  final int id;
+  /// [id] of this game.
+  final String id;
+
+  /// [playerOne] name of this game.
   final String playerOne;
+
+  /// [playerTwo] name of this game.
   final String playerTwo;
+
+  /// [playerOneScore] of this game.
   final int playerOneScore;
+
+  /// [playerTwoScore] of this game.
   final int playerTwoScore;
+
+  /// [date] of this game.
   final int date;
+
+  /// [notes] contains title/notes of this game.
   final Map<String, dynamic> notes;
+
+  /// [history] contains all events of this game.
   final Map<int, dynamic> history;
 
+  /// Constructor
   const GameEntity(
       {this.id,
       this.playerOne,
@@ -33,6 +50,7 @@ class GameEntity extends Equatable {
         history
       ];
 
+  /// Converts this entity to Json.
   Map<String, Object> toJson() {
     return {
       'id': id,
@@ -46,9 +64,10 @@ class GameEntity extends Equatable {
     };
   }
 
+  /// Converts Json entry to entity.
   static GameEntity fromJson(Map<String, Object> json) {
     return GameEntity(
-      id: json['id'] as int,
+      id: json['id'] as String,
       playerOne: json['playerOne'] as String,
       playerTwo: json['playerTwo'] as String,
       playerOneScore: json['playerOneScore'] as int,

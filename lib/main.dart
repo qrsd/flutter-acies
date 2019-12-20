@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import './blocs/blocs.dart';
 import './blocs/simple_bloc_delegate.dart';
 import './repository/repositories.dart';
-import './screens/calculator_screen.dart';
+import './screens/screens.dart';
 import './utils/constants.dart';
 import './utils/file_storage.dart';
 import './utils/ticker.dart';
@@ -20,8 +20,8 @@ void main() {
         BlocProvider<CoinBloc>(
           create: (context) => CoinBloc(),
         ),
-        BlocProvider<DiceBloc>(
-          create: (context) => DiceBloc(),
+        BlocProvider<DieBloc>(
+          create: (context) => DieBloc(),
         ),
         BlocProvider<SwipeBarBloc>(
           create: (context) => SwipeBarBloc(),
@@ -30,9 +30,7 @@ void main() {
           create: (context) => TopBarBloc(),
         ),
         BlocProvider<NotesBloc>(
-          create: (context) => NotesBloc(
-            topBarBloc: BlocProvider.of<TopBarBloc>(context),
-          ),
+          create: (context) => NotesBloc(),
         ),
         BlocProvider<TimerBloc>(
           create: (context) => TimerBloc(
@@ -50,7 +48,7 @@ void main() {
             calculatorBloc: BlocProvider.of<CalculatorBloc>(context),
             topBarBloc: BlocProvider.of<TopBarBloc>(context),
             coinBloc: BlocProvider.of<CoinBloc>(context),
-            diceBloc: BlocProvider.of<DiceBloc>(context),
+            diceBloc: BlocProvider.of<DieBloc>(context),
           ),
         ),
         BlocProvider<GamesBloc>(
@@ -58,7 +56,7 @@ void main() {
             notesBloc: BlocProvider.of<NotesBloc>(context),
             historyBloc: BlocProvider.of<HistoryBloc>(context),
             gameRepositoryLocal: const GameRepositoryLocal(
-                fileStorage: const FileStorage(
+                fileStorage: FileStorage(
                     '__games_storage__', getApplicationDocumentsDirectory)),
           )..add(GamesLoadEvent()),
         ),
@@ -68,6 +66,7 @@ void main() {
   );
 }
 
+/// Setups app
 class CalculatorApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -77,7 +76,7 @@ class CalculatorApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: themeData,
-      home: CalculatorPage(),
+      home: CalculatorScreen(),
     );
   }
 }

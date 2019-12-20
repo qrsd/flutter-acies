@@ -2,21 +2,24 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 
-import './bloc.dart';
-import '../blocs.dart';
 import '../../utils/constants.dart';
+import '../blocs.dart';
+import './bloc.dart';
 
+/// Calculator BLoC
 class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   static int _p1LP;
   static int _p2LP;
   static String _delta;
 
+  /// [topBarBloc] subscription to fire a reset even when a player wins a game.
   final TopBarBloc topBarBloc;
 
-  StreamSubscription topBarSubscription;
+  StreamSubscription _topBarSubscription;
 
+  /// Constructor
   CalculatorBloc({@required this.topBarBloc}) {
-    topBarSubscription = topBarBloc.listen((state) {
+    _topBarSubscription = topBarBloc.listen((state) {
       if (state is TopBarP1Win || state is TopBarP2Win) {
         add(CalculatorResetEvent());
       }
@@ -40,14 +43,15 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
       yield* _mapCalculatorIntegerEventToState(event);
     } else if (event is CalculatorResetEvent) {
       yield* _mapCalculatorResetEventToState();
-    } else if (event is CalculatorResumeEvent) {
-      yield* _mapCalculatorResumeEventToState(event);
     }
+//    else if (event is CalculatorResumeEvent) {
+//      yield* _mapCalculatorResumeEventToState(event);
+//    }
   }
 
   Stream<CalculatorState> _mapCalculatorCalculationEventToState(
       CalculatorCalculationEvent event) async* {
-    String val = event.value.key;
+    var val = event.value.key;
     String delta;
     if (_delta != null || val.contains('hlf')) {
       if (val.contains('0')) {
@@ -67,8 +71,8 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
             delta = _p1LP.toString();
             break;
         }
-        yield CalculatorP1LPUpdate(
-            _p1LP, delta, val.contains('add') ? true : false);
+        yield CalculatorP1LPUpdate(_p1LP, delta,
+            add: val.contains('add') ? true : false);
       } else {
         switch (val) {
           case 'add1':
@@ -86,8 +90,8 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
             delta = _p2LP.toString();
             break;
         }
-        yield CalculatorP2LPUpdate(
-            _p2LP, delta, val.contains('add') ? true : false);
+        yield CalculatorP2LPUpdate(_p2LP, delta,
+            add: val.contains('add') ? true : false);
       }
     }
     _delta = null;
@@ -100,7 +104,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
 
   Stream<CalculatorState> _mapCalculatorIntegerEventToState(
       CalculatorIntegerEvent event) async* {
-    String val = event.value.key;
+    var val = event.value.key;
     if (val.contains('0') && _delta == null) {
       _delta = null;
     } else {
@@ -119,18 +123,18 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
     yield CalculatorInitial();
   }
 
-  Stream<CalculatorState> _mapCalculatorResumeEventToState(
-      CalculatorResumeEvent event) async* {
-    if (event.player == playerOneVal) {
-      yield CalculatorResume(event.player, _p1LP);
-    } else {
-      yield CalculatorResume(event.player, _p2LP);
-    }
-  }
+//  Stream<CalculatorState> _mapCalculatorResumeEventToState(
+//      CalculatorResumeEvent event) async* {
+//    if (event.player == playerOneVal) {
+//      yield CalculatorResume(event.player, _p1LP);
+//    } else {
+//      yield CalculatorResume(event.player, _p2LP);
+//    }
+//  }
 
   @override
   Future<void> close() {
-    topBarSubscription.cancel();
+    _topBarSubscription.cancel();
     return super.close();
   }
 }

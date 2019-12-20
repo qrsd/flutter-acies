@@ -4,11 +4,13 @@ import 'package:bloc/bloc.dart';
 
 import './bloc.dart';
 
+/// Top bar BLoC.
 class TopBarBloc extends Bloc<TopBarEvent, TopBarState> {
   static int _p1Score;
   static int _p2Score;
   bool _gameOver;
 
+  /// Constructor
   TopBarBloc() {
     _p1Score = 0;
     _p2Score = 0;
@@ -24,15 +26,9 @@ class TopBarBloc extends Bloc<TopBarEvent, TopBarState> {
   ) async* {
     if (event is TopBarResetEvent) {
       yield* _mapTopBarResetEventToState();
-    } else if (event is TopBarBackEvent) {
-      yield* _mapTopBarBackEventToState();
     } else if (event is TopBarScoreEvent) {
       yield* _mapTopBarScoreEventToState(event);
     }
-  }
-
-  Stream<TopBarState> _mapTopBarBackEventToState() async* {
-    yield TopBarBack();
   }
 
   Stream<TopBarState> _mapTopBarResetEventToState() async* {
@@ -44,7 +40,7 @@ class TopBarBloc extends Bloc<TopBarEvent, TopBarState> {
 
   Stream<TopBarState> _mapTopBarScoreEventToState(
       TopBarScoreEvent event) async* {
-    String val = event.value.key;
+    var val = event.value.key;
     if (!_gameOver) {
       if (val.contains('0')) {
         ++_p1Score;

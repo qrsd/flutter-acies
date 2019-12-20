@@ -1,3 +1,3 @@
-export 'dice_bloc.dart';
-export 'dice_event.dart';
-export 'dice_state.dart';
+export 'die_bloc.dart';
+export 'die_event.dart';
+export 'die_state.dart';

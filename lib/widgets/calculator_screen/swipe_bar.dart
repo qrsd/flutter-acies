@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../blocs/blocs.dart';
+import '../../utils/constants.dart';
 import './widgets.dart';
-import '../blocs/blocs.dart';
-import '../utils/constants.dart';
 
+/// Swipe bar widget containing dice, coin, history, reset features.
 class SwipeBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

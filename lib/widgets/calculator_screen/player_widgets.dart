@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../blocs/blocs.dart';
+import '../../models/models.dart';
+import '../../utils/constants.dart';
 import './widgets.dart';
-import '../blocs/blocs.dart';
-import '../utils/constants.dart';
-import '../utils/key_values.dart';
 
+/// Creates both player columns.
 class PlayerColumn extends StatelessWidget {
+  /// [player] id.
   final int player;
 
+  /// Constructor
   PlayerColumn(this.player);
 
   @override
@@ -22,17 +25,20 @@ class PlayerColumn extends StatelessWidget {
         children: <Widget>[
           PlayerField(player),
           LifePoints(player),
-          KeyButton(player == playerOneVal ? KeyValues.add0 : KeyValues.add1),
-          KeyButton(player == playerOneVal ? KeyValues.min0 : KeyValues.min1),
+          KeyButton(player == playerOneVal ? add0 : add1),
+          KeyButton(player == playerOneVal ? min0 : min1),
         ],
       ),
     );
   }
 }
 
+/// Text form field for each player.
 class PlayerField extends StatelessWidget {
+  /// [player] id
   final int player;
 
+  /// Constructor
   PlayerField(this.player);
 
   @override
@@ -42,18 +48,18 @@ class PlayerField extends StatelessWidget {
       child: TextFormField(
         autocorrect: false,
         inputFormatters: [LengthLimitingTextInputFormatter(8)],
-        initialValue: this.player == playerOneVal ? 'You' : 'Opponent',
+        initialValue: player == playerOneVal ? 'You' : 'Opponent',
         style: TextStyle(fontSize: (MediaQuery.of(context).size.width) / 18),
         textAlign: TextAlign.center,
         cursorColor: secondaryColor,
         decoration: const InputDecoration(
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: const BorderSide(
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
               color: Colors.white,
             ),
           ),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: const BorderSide(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
               color: secondaryColor,
             ),
           ),
@@ -61,16 +67,19 @@ class PlayerField extends StatelessWidget {
         onFieldSubmitted: (name) {
           SystemChrome.restoreSystemUIOverlays();
           BlocProvider.of<HistoryBloc>(context)
-              .add(HistoryNameChangeEvent(this.player, name));
+              .add(HistoryNameChangeEvent(player, name));
         },
       ),
     );
   }
 }
 
+/// Responsible for each player's life points and the animation.
 class LifePoints extends StatefulWidget {
+  /// [player] id
   final int player;
 
+  /// Constructor
   LifePoints(this.player);
 
   @override
@@ -139,6 +148,7 @@ class _LifePointsState extends State<LifePoints>
   }
 }
 
+/// Center column, delta for life points.
 class CenterColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -146,7 +156,6 @@ class CenterColumn extends StatelessWidget {
       height: MediaQuery.of(context).size.height * .3,
       width: MediaQuery.of(context).size.width / 3,
       child: Stack(
-        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Align(
             alignment: const Alignment(0, 0),
@@ -154,10 +163,11 @@ class CenterColumn extends StatelessWidget {
               builder: (_, state) {
                 String centerText;
                 if (!(state is CalculatorMiddleUpdate) ||
-                    state.props[0] == null)
+                    state.props[0] == null) {
                   centerText = '0000';
-                else
+                } else {
                   centerText = state.props[0];
+                }
                 return Text(
                   centerText,
                   style: TextStyle(
@@ -172,8 +182,8 @@ class CenterColumn extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                KeyButton(KeyValues.win0),
-                KeyButton(KeyValues.win1),
+                KeyButton(win0),
+                KeyButton(win1),
               ],
             ),
           ),

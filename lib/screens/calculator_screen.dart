@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/blocs.dart';
 import '../utils/constants.dart';
-import '../widgets/widgets.dart';
+import '../widgets/calculator_screen/widgets.dart';
+import '../widgets/snack_bars.dart';
 
-class CalculatorPage extends StatelessWidget {
+/// Primary use screen. Displays all widgets used by the calculator screen.
+class CalculatorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +35,8 @@ class CalculatorPage extends StatelessWidget {
           BlocBuilder<SwipeBarBloc, SwipeBarState>(
             builder: (context, state) {
               return GestureDetector(
+                onTap: () => BlocProvider.of<SwipeBarBloc>(context)
+                    .add(SwipeBarTapEvent()),
                 onVerticalDragUpdate: (DragUpdateDetails details) {
                   BlocProvider.of<SwipeBarBloc>(context)
                       .add(SwipeBarMovingEvent(details.primaryDelta));

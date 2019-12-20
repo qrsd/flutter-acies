@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 
 import './bloc.dart';
 
+/// Coin BLoC
 class CoinBloc extends Bloc<CoinEvent, CoinState> {
   @override
   CoinState get initialState => CoinInitial();
@@ -21,7 +21,7 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   }
 
   Stream<CoinState> _mapCoinFlipEventToState() async* {
-    final int flip = Random().nextInt(2) + 1;
+    final flip = Random().nextInt(2) + 1;
     if (state == CoinFlipped(flip)) {
       yield CoinDoubleFlipped(flip);
     } else {

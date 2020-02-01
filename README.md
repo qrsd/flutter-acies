@@ -7,8 +7,6 @@ Coded December 2019
 
 acies is a modern, minimalist, feature packed, life point calculator.
 
-This is the source code for the lite version which doesn't include match history and its data layer.
-
 Features:
 - Life point counter
 - Duel history: records all events in a duel
